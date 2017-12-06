@@ -38,10 +38,47 @@ function updateAppData() {
           'money-purchasing',
           'money-gambling']
   for (var i in cats) {
-    val = document.querySelector('input[name="' + cats[i] + '"]:checked').value
-    xml += '    <content_attribute id="' + cats[i] + '">' + val + '</content_attribute>\n'  }
+    var e = document.getElementById(cats[i]);
+    var val = e.options[e.selectedIndex].value;
+    xml += '    <content_attribute id="' + cats[i] + '">' + val + '</content_attribute>\n'
+  }
   xml += '  </content_rating>\n'
   document.getElementById('appdata_oars').value = xml;
+
+  // hide tabs when not required
+  var sections = [
+    { section:  'violence',
+      kinds:    ['game-online', 'game-offline']
+    },
+    { section:  'drugs',
+      kinds:    ['game-online', 'game-offline']
+    },
+    { section:  'sexnudity',
+      kinds:    ['game-online', 'game-offline']
+    },
+    { section:  'language',
+      kinds:    ['game-online', 'game-offline']
+    },
+    { section:  'social',
+      kinds:    ['game-online', 'app-online', 'app-offline']
+    },
+    { section:  'money',
+      kinds:    ['game-online', 'game-offline', 'app-online', 'app-offline']
+    }
+  ];
+
+
+  var e = document.getElementById('component-kind');
+  var val = e.options[e.selectedIndex].value;
+  for (var i in sections) {
+    var section = sections[i].section
+    var e = document.getElementById('tab-' + section);
+    e.style.display = "none";
+    for (var j in sections[i].kinds) {
+      if (sections[i].kinds[j] == val)
+        e.style.display = "block";
+    }
+  }
 }
 
 </script>
@@ -59,270 +96,379 @@ function updateAppData() {
 
     <div class="container mt-3">
 
-    <p>
-      By filling in the following form you can generate AppStream-compatible markup
-      for the upstream AppData file.
-    </p>
-
-    <p>
-      When reading the descriptions below, these apply to:
-    </p>
-    <ul>
-      <li>In-game spoken or written dialog</li>
-      <li>Depictions of, e.g. a short cut-scene</li>
-      <li>Graphical references, e.g images of</li>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#intro" role="tab">Introduction</a>
+      </li>
+      <li class="nav-item" id="tab-violence">
+        <a class="nav-link" data-toggle="tab" href="#violence" role="tab">Violence</a>
+      </li>
+      <li class="nav-item" id="tab-drugs">
+        <a class="nav-link" data-toggle="tab" href="#drugs" role="tab">Drugs</a>
+      </li>
+      <li class="nav-item" id="tab-sexnudity">
+        <a class="nav-link" data-toggle="tab" href="#sexnudity" role="tab">Sex and Nudity</a>
+      </li>
+      <li class="nav-item" id="tab-language">
+        <a class="nav-link" data-toggle="tab" href="#language" role="tab">Language</a>
+      </li>
+      <li class="nav-item" id="tab-money">
+        <a class="nav-link" data-toggle="tab" href="#money" role="tab">Money</a>
+      </li>
+      <li class="nav-item" id="tab-social">
+        <a class="nav-link" data-toggle="tab" href="#social" role="tab">Social</a>
+      </li>
+      <li class="nav-item" id="tab-xml">
+        <a class="nav-link" data-toggle="tab" href="#xml" role="tab">XML</a>
+      </li>
     </ul>
 
-    <hr/>
-    <h2>Violence</h2>
-
-    <h3>Cartoon Violence</h3>
     <form onChange="updateAppData()">
-    <input type="radio" name="violence-cartoon" value="none" checked>
-    None<br/>
-    <input type="radio" name="violence-cartoon" value="mild">
-    Cartoon characters in unsafe situations<br/>
-    <input type="radio" name="violence-cartoon" value="moderate">
-    Cartoon characters in aggressive conflict<br/>
-    <input type="radio" name="violence-cartoon" value="intense">
-    Graphic violence involving cartoon characters<br/>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+      <!-- Introduction pane -->
+      <div class="tab-pane active mt-3" id="intro" role="tabpanel">
+        <p>
+          By answering all the questions you can generate AppStream-compatible markup
+          for the upstream AppData file.
+        </p>
+        <p>
+          If the user is able to <q>enable</q> NSFW or <q>adult</q> content, then this
+          should be included in the assessment even if it is turned off by default.
+        </p>
+        <p>
+          What type of component are you generating content for:
+        </p>
+        <select class="form-control" id="component-kind" required>
+          <option value="game-online">Game with networking</option>
+          <option value="game-offline">Game that does not use any kind of network access</option>
+          <option value="app-online">Application that can connect to the Internet</option>
+          <option value="app-offline">Application that does not use the Internet</option>
+        </select>
+      </div>
+
+      <!-- Violence pane -->
+      <div class="tab-pane mt-3" id="violence" role="tabpanel">
+        <h2 class="mt-3">Cartoon Violence</h2>
+        <p>
+          Defined as <em>fictional characters depicted
+          in an animated film or a comic strip</em> which do not look human.
+        </p>
+        <p class="text-secondary">
+          For example, this would include an animated worm fighting with a bird.
+        </p>
+        <select class="form-control" id="violence-cartoon" required>
+          <option value="none">None</option>
+          <option value="mild">Cartoon characters in unsafe situations</option>
+          <option value="moderate">Cartoon characters in aggressive conflict</option>
+          <option value="intense">Cartoon characters showing graphic violence</option>
+        </select>
+
+        <h2 class="mt-3">Fantasy Violence</h2>
+        <p>
+          Defined as <em>characters easily distinguishable from reality</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include human units in a turn-taking isometric game.
+        </p>
+        <select class="form-control" id="violence-fantasy" required>
+          <option value="none">None</option>
+          <option value="mild">Fantasy characters in unsafe situations</option>
+          <option value="moderate">Fantasy characters in aggressive conflict</option>
+          <option value="intense">Fantasy characters with graphic violence</option>
+        </select>
+
+        <h2 class="mt-3">Realistic Violence</h2>
+        <p>
+          Defined as <em>characters not easily distinguishable from reality</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include a user shooting a gun at a human characters.
+        </p>
+        <select class="form-control" id="violence-realistic" required>
+          <option value="none">None</option>
+          <option value="mild">Realistic characters in unsafe situations</option>
+          <option value="moderate">Realistic characters in depictions of aggressive conflict</option>
+          <option value="intense">Realistic characters with graphic violence</option>
+        </select>
+
+        <h2 class="mt-3">Bloodshed</h2>
+        <p>
+          Defined as <em>the killing or wounding of people</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include a user shooting a gun at a human
+          head, causing it to explode.
+        </p>
+        <select class="form-control" id="violence-bloodshed" required>
+          <option value="none">None</option>
+          <option value="mild">Unrealistic bloodshed</option>
+          <option value="moderate">Realistic bloodshed</option>
+          <option value="intense">Depictions of bloodshed and the mutilation of body parts</option>
+        </select>
+
+        <h2 class="mt-3">Sexual Violence</h2>
+        <p>
+          Defined as <em>any unwanted sexual act or activity</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include non-consensual sex or grabbing the
+          crotch of another user.
+        </p>
+        <select class="form-control" id="violence-sexual" required>
+          <option value="none">None</option>
+          <option value="intense">Rape or other violent sexual behavior</option>
+        </select>
+      </div>
+
+      <!-- Drugs pane -->
+      <div class="tab-pane mt-3" id="drugs" role="tabpanel">
+        <h2 class="mt-3">Alcohol</h2>
+        <p>
+        </p>
+        <p class="text-secondary">
+          For example, this would include seeing a character drink a beer.
+        </p>
+        <select class="form-control" id="drugs-alcohol" required>
+          <option value="none">None</option>
+          <option value="mild">References to alcoholic beverages</option>
+          <option value="moderate">Use of alcoholic beverages</option>
+        </select>
+
+        <h2 class="mt-3">Narcotics</h2>
+        <p>
+          Defined as <em>an addictive drug affecting mood or behaviour</em>
+          that is specifically illegal in at least one country.
+        </p>
+        <p class="text-secondary">
+          For example, this would include references to <q>getting high</q>.
+        </p>
+        <select class="form-control" id="drugs-narcotics" required>
+          <option value="none">None</option>
+          <option value="mild">References to illicit drugs</option>
+          <option value="moderate">Use of illicit drugs</option>
+        </select>
+
+        <h2 class="mt-3">Tobacco</h2>
+        <p>
+          Defined as <em>any nicotine-rich product</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include references to chewing tobacco.
+        </p>
+        <select class="form-control" id="drugs-tobacco" required>
+          <option value="none">None</option>
+          <option value="mild">References to tobacco products</option>
+          <option value="moderate">Use of tobacco products</option>
+        </select>
+      </div>
+
+      <!-- Sex and Nudity pane -->
+      <div class="tab-pane mt-3" id="sexnudity" role="tabpanel">
+        <h2 class="mt-3">Nudity</h2>
+        <p>
+          Defined as <em>a state of undress</em>, and in this case
+          specifically specifically nudity likely to cause offense.
+        </p>
+        <p class="text-secondary">
+          For example, this would include topless cheerleaders.
+        </p>
+        <select class="form-control" id="sex-nudity" required>
+          <option value="none">None</option>
+          <option value="mild">Brief artistic nudity</option>
+          <option value="moderate">Prolonged nudity</option>
+          <option value="intense">Explicit nudity showing nipples or sexual organs</option>
+        </select>
+
+        <h2 class="mt-3">Sexual Themes</h2>
+        <p>
+          Defined as <em>in reference to a sexual act</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include blowing a kiss to another character.
+        </p>
+        <select class="form-control" id="sex-themes" required>
+          <option value="none">None</option>
+          <option value="mild">Provocative references or depictions</option>
+          <option value="moderate">Sexual references or depictions</option>
+          <option value="intense">Graphic sexual behavior</option>
+        </select>
+      </div>
+
+      <!-- Language pane -->
+      <div class="tab-pane mt-3" id="language" role="tabpanel">
+
+        <h2 class="mt-3">Profanity</h2>
+        <p>
+          Defined as <em>blasphemous or obscene language</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include most curse words.
+        </p>
+        <select class="form-control" id="language-profanity" required>
+          <option value="none">None</option>
+          <option value="mild">Mild or infrequent use of profanity (e.g. 'Dufus')</option>
+          <option value="moderate">Moderate use of profanity (e.g. 'Shit')</option>
+          <option value="intense">Strong or frequent use of profanity (e.g. 'Fuck'</option>
+        </select>
+
+        <h2 class="mt-3">Humor</h2>
+        <p>
+          Defined as <em>the quality of being amusing</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include in-game jokes.
+        </p>
+        <select class="form-control" id="language-humor" required>
+          <option value="none">None</option>
+          <option value="mild">Slapstick humor</option>
+          <option value="moderate">Vulgar or bathroom humor</option>
+          <option value="intense">Mature or sexual humor</option>
+        </select>
+
+        <h2 class="mt-3">Discrimination</h2>
+        <p>
+          Defined as <em>the unjust or prejudicial treatment of
+          different categories of people, especially on the grounds of race,
+          age, or sex</em>.
+        </p>
+        <select class="form-control" id="language-discrimination" required>
+          <option value="none">None</option>
+          <option value="mild">Negativity towards a specific group of people, e.g. ethnic jokes</option>
+          <option value="moderate">Discrimation designed to cause emotional harm, e.g. racism, or homophobia</option>
+          <option value="intense">Explicit discrimination based on gender, sexuality, race or religion, e.g. genocide</option>
+        </select>
+      </div>
+
+      <!-- Money pane -->
+      <div class="tab-pane mt-3" id="money" role="tabpanel">
+
+        <h2 class="mt-3">Advertising</h2>
+        <p>
+          Defined as <em>the activity of producing advertisements for commercial
+          products or services</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include banners showing the Coca-Cola logo shown
+          in a Soccer game.
+        </p>
+        <select class="form-control" id="money-advertising" required>
+          <option value="none">None</option>
+          <option value="mild">Product placement, e.g. billboards in a football game</option>
+          <option value="moderate">Explicit references to specific brands or trademarked products</option>
+          <option value="intense">Users are encouraged to purchase specific real-world items</option>
+        </select>
+
+        <h2 class="mt-3">Gambling</h2>
+        <p>
+          Defined as <em>taking a risky action in the hope of a desired result</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include spinning a wheel to get in-game credits.
+        </p>
+        <select class="form-control" id="money-gambling" required>
+          <option value="none">None</option>
+          <option value="mild">Gambling on random events using tokens or credits</option>
+          <option value="moderate">Gambling using fictional money</option>
+          <option value="intense">Gambling using real money</option>
+        </select>
+
+        <h2 class="mt-3">In-App Purchases</h2>
+        <p>
+          Defined as <em>items or points that a user can buy for use within a
+          virtual world to improve a character or enhance the playing experience</em>.
+        </p>
+        <select class="form-control" id="money-purchasing" required>
+          <option value="none">None</option>
+          <option value="mild">Users are encouraged to donate to the project</option>
+          <option value="intense">Ability to spend real money in-game, e.g. buying new content or new levels</option>
+        </select>
+      </div>
+
+      <!-- Social pane -->
+      <div class="tab-pane mt-3" id="social" role="tabpanel">
+
+        <h2 class="mt-3">Online Text-only Messaging</h2>
+        <p>
+          Defined as <em>any messaging system connected to the Internet</em>.
+        </p>
+        <select class="form-control" id="social-chat" required>
+          <option value="none">None</option>
+          <option value="mild">User-to-user game interactions (e.g. playing chess) without chat functionality</option>
+          <option value="moderate">Moderated messaging between users</option>
+          <option value="intense">Uncontrolled chat functionality between users</option>
+        </select>
+
+        <h2 class="mt-3">Online Audio and Video Messaging</h2>
+        <p>
+          Defined as <em>any multimedia messaging system connected to the Internet</em>.
+        </p>
+        <select class="form-control" id="social-audio" required>
+          <option value="none">None</option>
+          <option value="moderate">Moderated audio or video chat between users</option>
+          <option value="intense">Uncontrolled audio or video chat between users</option>
+        </select>
+
+        <h2 class="mt-3">Contact Details</h2>
+        <p>
+          Defined as <em>sharing identifiable details with other users to allow
+          out-of-band communication</em>.
+        </p>
+        <select class="form-control" id="social-contacts" required>
+          <option value="none">None</option>
+          <option value="intense">Sharing Twitter, Facebook or email addresses</option>
+        </select>
+
+        <h2 class="mt-3">Information Sharing</h2>
+        <p>
+          Defined as <em>sharing information with a legal entiry</em> typically
+          used for advertising or for sending back diagnostic data.
+        </p>
+        <p class="text-secondary">
+          For example, this would include sending your purchasing history to Amazon.
+        </p>
+        <select class="form-control" id="social-info" required>
+          <option value="none">None</option>
+          <option value="mild">Checking for the latest application version (typically acting as a user-counter)</option>
+          <option value="moderate">Sharing diagnostic data not identifiable to the user, e.g. profiling data</option>
+          <option value="intense">Sharing information identifiable to the user, e.g. crash dumps</option>
+        </select>
+
+        <h2 class="mt-3">Location Sharing</h2>
+        <p>
+          Defined as <em>sharing your physical real-time location</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include uploading the GPS co-ordinates of your
+          current location.
+          NOTE: This does <b>not</b> include heuristic based location services,
+          e.g. GeoIP and others.
+        </p>
+        <select class="form-control" id="social-location" required>
+          <option value="none">None</option>
+          <option value="intense">Sharing physical location (e.g. a postal address) to other users</option>
+        </select>
+      </div>
+
+      <!-- XML pane -->
+      <div class="tab-pane mt-3" id="xml" role="tabpanel">
+        <p>
+          The following markup can be pasted into the existing application AppData file.
+        </p>
+        <textarea id="appdata_oars" rows="25" cols="80">
+        </textarea>
+      </div>
+    </div>
+
     </form>
-
-    <h3>Fantasy Violence</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="violence-fantasy" value="none" checked>
-    None<br/>
-    <input type="radio" name="violence-fantasy" value="mild">
-    Characters in unsafe situations easily distinguishable from reality<br/>
-    <input type="radio" name="violence-fantasy" value="moderate">
-    Characters in aggressive conflict easily distinguishable from reality<br/>
-    <input type="radio" name="violence-fantasy" value="intense">
-    Graphic violence easily distinguishable from reality<br/>
-    </form>
-
-    <h3>Realistic Violence</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="violence-realistic" value="none" checked>
-    None<br/>
-    <input type="radio" name="violence-realistic" value="mild">
-    Mild realistic characters in unsafe situations<br/>
-    <input type="radio" name="violence-realistic" value="moderate">
-    Depictions of realistic characters in aggressive conflict<br/>
-    <input type="radio" name="violence-realistic" value="intense">
-    Graphic violence involving realistic characters<br/>
-    </form>
-
-    <h3>Bloodshed</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="violence-bloodshed" value="none" checked>
-    None<br/>
-    <input type="radio" name="violence-bloodshed" value="mild">
-    Unrealistic bloodshed<br/>
-    <input type="radio" name="violence-bloodshed" value="moderate">
-    Realistic bloodshed<br/>
-    <input type="radio" name="violence-bloodshed" value="intense">
-    Depictions of bloodshed and the mutilation of body parts<br/>
-    </form>
-
-    <h3>Sexual Violence</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="violence-sexual" value="none" checked>
-    None<br/>
-    <input type="radio" name="violence-sexual" value="intense">
-    Rape or other violent sexual behavior<br/>
-    </form>
-
-    <hr/>
-    <h2>Drugs</h2>
-
-    <h3>Alcohol</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="drugs-alcohol" value="none" checked>
-    None<br/>
-    <input type="radio" name="drugs-alcohol" value="mild">
-    References to alcoholic beverages<br/>
-    <input type="radio" name="drugs-alcohol" value="moderate">
-    Use of alcoholic beverages<br/>
-    </form>
-
-    <h3>Narcotics</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="drugs-narcotics" value="none" checked>
-    None<br/>
-    <input type="radio" name="drugs-narcotics" value="mild">
-    References to illicit drugs<br/>
-    <input type="radio" name="drugs-narcotics" value="moderate">
-    Use of illicit drugs<br/>
-    </form>
-
-    <h3>Tobacco</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="drugs-tobacco" value="none" checked>
-    None<br/>
-    <input type="radio" name="drugs-tobacco" value="mild">
-    References to tobacco products<br/>
-    <input type="radio" name="drugs-tobacco" value="moderate">
-    Use of tobacco products<br/>
-    </form>
-
-    <hr/>
-    <h2>Sex/Nudity</h2>
-
-    <h3>Nudity</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="sex-nudity" value="none" checked>
-    None<br/>
-    <input type="radio" name="sex-nudity" value="mild">
-    Brief artistic nudity<br/>
-    <input type="radio" name="sex-nudity" value="moderate">
-    Prolonged nudity<br/>
-    </form>
-
-    <h3>Sexual Themes</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="sex-themes" value="none" checked>
-    None<br/>
-    <input type="radio" name="sex-themes" value="mild">
-    Provocative references or depictions<br/>
-    <input type="radio" name="sex-themes" value="moderate">
-    Sexual references or depictions<br/>
-    <input type="radio" name="sex-themes" value="intense">
-    Graphic sexual behavior<br/>
-    </form>
-
-    <hr/>
-    <h2>Language</h2>
-
-    <h3>Profanity</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="language-profanity" value="none" checked>
-    None<br/>
-    <input type="radio" name="language-profanity" value="mild">
-    Mild or infrequent use of profanity<br/>
-    <input type="radio" name="language-profanity" value="moderate">
-    Moderate use of profanity<br/>
-    <input type="radio" name="language-profanity" value="intense">
-    Strong or frequent use of profanity<br/>
-    </form>
-
-    <h3>Humor</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="language-humor" value="none" checked>
-    None<br/>
-    <input type="radio" name="language-humor" value="mild">
-    Slapstick humor<br/>
-    <input type="radio" name="language-humor" value="moderate">
-    Vulgar or bathroom humor<br/>
-    <input type="radio" name="language-humor" value="intense">
-    Mature or sexual humor<br/>
-    </form>
-
-    <h3>Discrimination</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="language-discrimination" value="none" checked>
-    None<br/>
-    <input type="radio" name="language-discrimination" value="mild">
-    Negativity towards a specific group of people, e.g. ethnic jokes<br/>
-    <input type="radio" name="language-discrimination" value="moderate">
-    Discrimation designed to cause emotional harm, e.g. racism, or homophobia<br/>
-    <input type="radio" name="language-discrimination" value="intense">
-    Explicit discrimination based on gender, sexuality, race or religion, e.g. genocide<br/>
-    </form>
-
-    <hr/>
-    <h2>Money</h2>
-
-    <h3>Advertising</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="money-advertising" value="none" checked>
-    None<br/>
-    <input type="radio" name="money-advertising" value="mild">
-    Product placement, e.g. billboards in a football game<br/>
-    <input type="radio" name="money-advertising" value="moderate">
-    Explicit references to specific brands or trademarked products<br/>
-    <input type="radio" name="money-advertising" value="intense">
-    Players are encouraged to purchase specific real-world items<br/>
-    </form>
-
-    <h3>Gambling</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="money-gambling" value="none" checked>
-    None<br/>
-    <input type="radio" name="money-gambling" value="mild">
-    Gambling on random events using tokens or credits<br/>
-    <input type="radio" name="money-gambling" value="moderate">
-    Gambling using fictional money<br/>
-    <input type="radio" name="money-gambling" value="intense">
-    Gambling using real money<br/>
-    </form>
-
-    <h3>In-Game Purchases</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="money-purchasing" value="none" checked>
-    None<br/>
-    <input type="radio" name="money-purchasing" value="intense">
-    Ability to spend real money in-game, e.g. buying new content or new levels<br/>
-    </form>
-
-    <hr/>
-    <h2>Social</h2>
-
-    <h3>Online Text-only Messaging</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="social-chat" value="none" checked>
-    None<br/>
-    <input type="radio" name="social-chat" value="mild">
-    Player-to-player game interactions (e.g. playing chess) without chat functionality<br/>
-    <input type="radio" name="social-chat" value="moderate">
-    Player-to-player preset interactions (e.g. giving an axe for a quest) without chat functionality<br/>
-    <input type="radio" name="social-chat" value="intense">
-    Uncontrolled chat functionality between players<br/>
-    </form>
-
-    <h3>Online Audio and Video Messaging</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="social-audio" value="none" checked>
-    None<br/>
-    <input type="radio" name="social-audio" value="intense">
-    Uncontrolled audio or video chat functionality between players<br/>
-    </form>
-
-    <h3>Contact Details</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="social-contacts" value="none" checked>
-    None<br/>
-    <input type="radio" name="social-contacts" value="intense">
-    Sharing Twitter, Facebook or email addresses<br/>
-    </form>
-
-    <h3>Information Sharing</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="social-info" value="none" checked>
-    None<br/>
-    <input type="radio" name="social-info" value="intense">
-    Sharing user information with 3rd parties<br/>
-    </form>
-
-    <h3>Location Sharing</h3>
-    <form onChange="updateAppData()">
-    <input type="radio" name="social-location" value="none" checked>
-    None<br/>
-    <input type="radio" name="social-location" value="intense">
-    Sharing physical location (e.g. a postal address, not just a country) to other users<br/>
-    </form>
-
-    <hr/>
-    <p>
-      The following markup can be pasted into the existing application AppData file.
-    </p>
-    <textarea id="appdata_oars" rows="25" cols="80">
-    </textarea>
-
-    <script>updateAppData();</script>
 
     </div>
 
     <hr>
+    <script>updateAppData();</script>
     <div class="container">
       <footer>
         <p>
