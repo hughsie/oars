@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<!-- Copyright (C) 2015-2017 Richard Hughes <richard@hughsie.com>
+     Licensed under the GNU General Public License Version 2 -->
+<html lang="en">
+  <head>
+    <title>ODRS: Open Age Ratings Service</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--
+    <link rel="shortcut icon" href="/static/favicon.ico"/>
+-->
+
+
+<script>
+
+function updateAppData() {
+  xml = '  <content_rating type="oars-1.0">\n'
+  cats = ['violence-cartoon',
+          'violence-fantasy',
+          'violence-realistic',
+          'violence-bloodshed',
+          'violence-sexual',
+          'drugs-alcohol',
+          'drugs-narcotics',
+          'drugs-tobacco',
+          'sex-nudity',
+          'sex-themes',
+          'language-profanity',
+          'language-humor',
+          'language-discrimination',
+          'social-chat',
+          'social-info',
+          'social-audio',
+          'social-location',
+          'social-contacts',
+          'money-purchasing',
+          'money-gambling']
+  for (var i in cats) {
+    val = document.querySelector('input[name="' + cats[i] + '"]:checked').value
+    xml += '    <content_attribute id="' + cats[i] + '">' + val + '</content_attribute>\n'  }
+  xml += '  </content_rating>\n'
+  document.getElementById('appdata_oars').value = xml;
+}
+
+</script>
+
+  </head>
+  <body>
+
+    <!-- navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html">ODRS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+
+    <div class="container mt-3">
+
+    <p>
+      By filling in the following form you can generate AppStream-compatible markup
+      for the upstream AppData file.
+    </p>
+
+    <p>
+      When reading the descriptions below, these apply to:
+    </p>
+    <ul>
+      <li>In-game spoken or written dialog</li>
+      <li>Depictions of, e.g. a short cut-scene</li>
+      <li>Graphical references, e.g images of</li>
+    </ul>
+
+    <hr/>
+    <h2>Violence</h2>
+
+    <h3>Cartoon Violence</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="violence-cartoon" value="none" checked>
+    None<br/>
+    <input type="radio" name="violence-cartoon" value="mild">
+    Cartoon characters in unsafe situations<br/>
+    <input type="radio" name="violence-cartoon" value="moderate">
+    Cartoon characters in aggressive conflict<br/>
+    <input type="radio" name="violence-cartoon" value="intense">
+    Graphic violence involving cartoon characters<br/>
+    </form>
+
+    <h3>Fantasy Violence</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="violence-fantasy" value="none" checked>
+    None<br/>
+    <input type="radio" name="violence-fantasy" value="mild">
+    Characters in unsafe situations easily distinguishable from reality<br/>
+    <input type="radio" name="violence-fantasy" value="moderate">
+    Characters in aggressive conflict easily distinguishable from reality<br/>
+    <input type="radio" name="violence-fantasy" value="intense">
+    Graphic violence easily distinguishable from reality<br/>
+    </form>
+
+    <h3>Realistic Violence</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="violence-realistic" value="none" checked>
+    None<br/>
+    <input type="radio" name="violence-realistic" value="mild">
+    Mild realistic characters in unsafe situations<br/>
+    <input type="radio" name="violence-realistic" value="moderate">
+    Depictions of realistic characters in aggressive conflict<br/>
+    <input type="radio" name="violence-realistic" value="intense">
+    Graphic violence involving realistic characters<br/>
+    </form>
+
+    <h3>Bloodshed</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="violence-bloodshed" value="none" checked>
+    None<br/>
+    <input type="radio" name="violence-bloodshed" value="mild">
+    Unrealistic bloodshed<br/>
+    <input type="radio" name="violence-bloodshed" value="moderate">
+    Realistic bloodshed<br/>
+    <input type="radio" name="violence-bloodshed" value="intense">
+    Depictions of bloodshed and the mutilation of body parts<br/>
+    </form>
+
+    <h3>Sexual Violence</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="violence-sexual" value="none" checked>
+    None<br/>
+    <input type="radio" name="violence-sexual" value="intense">
+    Rape or other violent sexual behavior<br/>
+    </form>
+
+    <hr/>
+    <h2>Drugs</h2>
+
+    <h3>Alcohol</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="drugs-alcohol" value="none" checked>
+    None<br/>
+    <input type="radio" name="drugs-alcohol" value="mild">
+    References to alcoholic beverages<br/>
+    <input type="radio" name="drugs-alcohol" value="moderate">
+    Use of alcoholic beverages<br/>
+    </form>
+
+    <h3>Narcotics</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="drugs-narcotics" value="none" checked>
+    None<br/>
+    <input type="radio" name="drugs-narcotics" value="mild">
+    References to illicit drugs<br/>
+    <input type="radio" name="drugs-narcotics" value="moderate">
+    Use of illicit drugs<br/>
+    </form>
+
+    <h3>Tobacco</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="drugs-tobacco" value="none" checked>
+    None<br/>
+    <input type="radio" name="drugs-tobacco" value="mild">
+    References to tobacco products<br/>
+    <input type="radio" name="drugs-tobacco" value="moderate">
+    Use of tobacco products<br/>
+    </form>
+
+    <hr/>
+    <h2>Sex/Nudity</h2>
+
+    <h3>Nudity</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="sex-nudity" value="none" checked>
+    None<br/>
+    <input type="radio" name="sex-nudity" value="mild">
+    Brief artistic nudity<br/>
+    <input type="radio" name="sex-nudity" value="moderate">
+    Prolonged nudity<br/>
+    </form>
+
+    <h3>Sexual Themes</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="sex-themes" value="none" checked>
+    None<br/>
+    <input type="radio" name="sex-themes" value="mild">
+    Provocative references or depictions<br/>
+    <input type="radio" name="sex-themes" value="moderate">
+    Sexual references or depictions<br/>
+    <input type="radio" name="sex-themes" value="intense">
+    Graphic sexual behavior<br/>
+    </form>
+
+    <hr/>
+    <h2>Language</h2>
+
+    <h3>Profanity</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="language-profanity" value="none" checked>
+    None<br/>
+    <input type="radio" name="language-profanity" value="mild">
+    Mild or infrequent use of profanity<br/>
+    <input type="radio" name="language-profanity" value="moderate">
+    Moderate use of profanity<br/>
+    <input type="radio" name="language-profanity" value="intense">
+    Strong or frequent use of profanity<br/>
+    </form>
+
+    <h3>Humor</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="language-humor" value="none" checked>
+    None<br/>
+    <input type="radio" name="language-humor" value="mild">
+    Slapstick humor<br/>
+    <input type="radio" name="language-humor" value="moderate">
+    Vulgar or bathroom humor<br/>
+    <input type="radio" name="language-humor" value="intense">
+    Mature or sexual humor<br/>
+    </form>
+
+    <h3>Discrimination</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="language-discrimination" value="none" checked>
+    None<br/>
+    <input type="radio" name="language-discrimination" value="mild">
+    Negativity towards a specific group of people, e.g. ethnic jokes<br/>
+    <input type="radio" name="language-discrimination" value="moderate">
+    Discrimation designed to cause emotional harm, e.g. racism, or homophobia<br/>
+    <input type="radio" name="language-discrimination" value="intense">
+    Explicit discrimination based on gender, sexuality, race or religion, e.g. genocide<br/>
+    </form>
+
+    <hr/>
+    <h2>Money</h2>
+
+    <h3>Advertising</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="money-advertising" value="none" checked>
+    None<br/>
+    <input type="radio" name="money-advertising" value="mild">
+    Product placement, e.g. billboards in a football game<br/>
+    <input type="radio" name="money-advertising" value="moderate">
+    Explicit references to specific brands or trademarked products<br/>
+    <input type="radio" name="money-advertising" value="intense">
+    Players are encouraged to purchase specific real-world items<br/>
+    </form>
+
+    <h3>Gambling</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="money-gambling" value="none" checked>
+    None<br/>
+    <input type="radio" name="money-gambling" value="mild">
+    Gambling on random events using tokens or credits<br/>
+    <input type="radio" name="money-gambling" value="moderate">
+    Gambling using fictional money<br/>
+    <input type="radio" name="money-gambling" value="intense">
+    Gambling using real money<br/>
+    </form>
+
+    <h3>In-Game Purchases</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="money-purchasing" value="none" checked>
+    None<br/>
+    <input type="radio" name="money-purchasing" value="intense">
+    Ability to spend real money in-game, e.g. buying new content or new levels<br/>
+    </form>
+
+    <hr/>
+    <h2>Social</h2>
+
+    <h3>Online Text-only Messaging</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="social-chat" value="none" checked>
+    None<br/>
+    <input type="radio" name="social-chat" value="mild">
+    Player-to-player game interactions (e.g. playing chess) without chat functionality<br/>
+    <input type="radio" name="social-chat" value="moderate">
+    Player-to-player preset interactions (e.g. giving an axe for a quest) without chat functionality<br/>
+    <input type="radio" name="social-chat" value="intense">
+    Uncontrolled chat functionality between players<br/>
+    </form>
+
+    <h3>Online Audio and Video Messaging</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="social-audio" value="none" checked>
+    None<br/>
+    <input type="radio" name="social-audio" value="intense">
+    Uncontrolled audio or video chat functionality between players<br/>
+    </form>
+
+    <h3>Contact Details</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="social-contacts" value="none" checked>
+    None<br/>
+    <input type="radio" name="social-contacts" value="intense">
+    Sharing Twitter, Facebook or email addresses<br/>
+    </form>
+
+    <h3>Information Sharing</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="social-info" value="none" checked>
+    None<br/>
+    <input type="radio" name="social-info" value="intense">
+    Sharing user information with 3rd parties<br/>
+    </form>
+
+    <h3>Location Sharing</h3>
+    <form onChange="updateAppData()">
+    <input type="radio" name="social-location" value="none" checked>
+    None<br/>
+    <input type="radio" name="social-location" value="intense">
+    Sharing physical location (e.g. a postal address, not just a country) to other users<br/>
+    </form>
+
+    <hr/>
+    <p>
+      The following markup can be pasted into the existing application AppData file.
+    </p>
+    <textarea id="appdata_oars" rows="25" cols="80">
+    </textarea>
+
+    <script>updateAppData();</script>
+
+    </div>
+
+    <hr>
+    <div class="container">
+      <footer>
+        <p>
+         Copyright <a href="mailto:richard@hughsie.com">Richard Hughes 2015-2017</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+
+</html>
