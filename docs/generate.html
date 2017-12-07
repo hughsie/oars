@@ -16,34 +16,108 @@
 <script>
 
 function updateAppData() {
-  xml = '  <content_rating type="oars-1.0">\n'
-  cats = ['violence-cartoon',
-          'violence-fantasy',
-          'violence-realistic',
-          'violence-bloodshed',
-          'violence-sexual',
-          'drugs-alcohol',
-          'drugs-narcotics',
-          'drugs-tobacco',
-          'sex-nudity',
-          'sex-themes',
-          'language-profanity',
-          'language-humor',
-          'language-discrimination',
-          'social-chat',
-          'social-info',
-          'social-audio',
-          'social-location',
-          'social-contacts',
-          'money-purchasing',
-          'money-gambling']
+  var cats = [
+    { id:       'violence-cartoon',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'violence-fantasy',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'violence-realistic',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'violence-bloodshed',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'violence-sexual',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'violence-desecration',
+      versions: ['1.1']
+    },
+    { id:       'violence-slavery',
+      versions: ['1.1']
+    },
+    { id:       'violence-worship',
+      versions: ['1.1']
+    },
+    { id:       'drugs-alcohol',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'drugs-narcotics',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'drugs-tobacco',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'sex-nudity',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'sex-themes',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'sex-homosexuality',
+      versions: ['1.1']
+    },
+    { id:       'sex-prostitution',
+      versions: ['1.1']
+    },
+    { id:       'sex-adultery',
+      versions: ['1.1']
+    },
+    { id:       'language-profanity',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'language-humor',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'language-discrimination',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'social-chat',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'social-info',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'social-audio',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'social-location',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'social-contacts',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'money-purchasing',
+      versions: ['1.0', '1.1']
+    },
+    { id:       'money-gambling',
+      versions: ['1.0', '1.1']
+    },
+  ];
+
+  var e = document.getElementById('api-version');
+  var api_version = e.options[e.selectedIndex].value;
+
+  // generate the XML
+  xml = '  <content_rating type="oars-' + api_version + '">\n'
   for (var i in cats) {
-    var e = document.getElementById(cats[i]);
+    var e = document.getElementById(cats[i].id);
+    if (!cats[i].versions.includes(api_version))
+      continue
     var val = e.options[e.selectedIndex].value;
-    xml += '    <content_attribute id="' + cats[i] + '">' + val + '</content_attribute>\n'
+    xml += '    <content_attribute id="' + cats[i].id + '">' + val + '</content_attribute>\n'
   }
   xml += '  </content_rating>\n'
   document.getElementById('appdata_oars').value = xml;
+
+  // disable elements when the API version is too old
+  for (var i in cats) {
+    var e = document.getElementById(cats[i].id);
+    var enabled = cats[i].versions.includes(api_version);
+    e.disabled = !enabled;
+  }
 
   // hide tabs when not required
   var sections = [
@@ -53,7 +127,7 @@ function updateAppData() {
     { section:  'drugs',
       kinds:    ['game-online', 'game-offline']
     },
-    { section:  'sexnudity',
+    { section:  'sex',
       kinds:    ['game-online', 'game-offline']
     },
     { section:  'language',
@@ -67,11 +141,10 @@ function updateAppData() {
     }
   ];
 
-
   var e = document.getElementById('component-kind');
   var val = e.options[e.selectedIndex].value;
   for (var i in sections) {
-    var section = sections[i].section
+    var section = sections[i].section;
     var e = document.getElementById('tab-' + section);
     e.style.display = "none";
     for (var j in sections[i].kinds) {
@@ -107,8 +180,8 @@ function updateAppData() {
       <li class="nav-item" id="tab-drugs">
         <a class="nav-link" data-toggle="tab" href="#drugs" role="tab">Drugs</a>
       </li>
-      <li class="nav-item" id="tab-sexnudity">
-        <a class="nav-link" data-toggle="tab" href="#sexnudity" role="tab">Sex and Nudity</a>
+      <li class="nav-item" id="tab-sex">
+        <a class="nav-link" data-toggle="tab" href="#sex" role="tab">Sex and Nudity</a>
       </li>
       <li class="nav-item" id="tab-language">
         <a class="nav-link" data-toggle="tab" href="#language" role="tab">Language</a>
@@ -147,6 +220,15 @@ function updateAppData() {
           <option value="game-offline">Game that does not use any kind of network access</option>
           <option value="app-online">Application that can connect to the Internet</option>
           <option value="app-offline">Application that does not use the Internet</option>
+        </select>
+        <p class="mt-3">
+          OARS has multiple versions, and the newer versions include more questions
+          involving specific cultural and religious sensitivies.
+          What version of OARS metadata do you want to produce:
+        </p>
+        <select class="form-control" id="api-version" required>
+          <option value="1.0">1.0 (works with all clients)</option>
+          <option value="1.1" selected="selected">1.1 (works with GNOME Software &gt;= 3.27.3)</option>
         </select>
       </div>
 
@@ -222,6 +304,52 @@ function updateAppData() {
           <option value="none">None</option>
           <option value="intense">Rape or other violent sexual behavior</option>
         </select>
+
+        <h2 class="mt-3">Religious Violence</h2>
+        <p>
+          Defined as <em>violence targeted to places of worship</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include blowing up a church in a war game.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="violence-worship" required>
+          <option value="none">None</option>
+          <option value="mild">Depictions or references to historical desecration of places of worship</option>
+          <option value="moderate">Depictions of modern-day human desecration of places of worship</option>
+          <option value="intense">Graphic depictions of modern-day desecration of places of worship</option>
+        </select>
+
+        <h2 class="mt-3">Desecration</h2>
+        <p>
+          Defined as <em>the action of desecrating something, typically a grave</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="violence-desecration" required>
+          <option value="none">None</option>
+          <option value="mild">Visible dead human remains</option>
+          <option value="moderate">Dead human remains that are exposed to the elements</option>
+          <option value="intense">Graphic depictions of desecration of human bodies, for example being eaten by wild animals</option>
+        </select>
+
+        <h2 class="mt-3">Slavery</h2>
+        <p>
+          Defined as <em>working without proper remuneration or appreciation</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="violence-slavery" required>
+          <option value="none">None</option>
+          <option value="mild">Depictions or references to historical human slavery</option>
+          <option value="moderate">Depictions of modern-day human slavery</option>
+          <option value="intense">Graphic depictions of modern-day human slavery</option>
+        </select>
+
       </div>
 
       <!-- Drugs pane -->
@@ -267,7 +395,7 @@ function updateAppData() {
       </div>
 
       <!-- Sex and Nudity pane -->
-      <div class="tab-pane mt-3" id="sexnudity" role="tabpanel">
+      <div class="tab-pane mt-3" id="sex" role="tabpanel">
         <h2 class="mt-3">Nudity</h2>
         <p>
           Defined as <em>a state of undress</em>, and in this case
@@ -295,6 +423,50 @@ function updateAppData() {
           <option value="mild">Provocative references or depictions</option>
           <option value="moderate">Sexual references or depictions</option>
           <option value="intense">Graphic sexual behavior</option>
+        </select>
+
+        <h2 class="mt-3">Homosexuality</h2>
+        <p>
+          Defined as <em>sexual attraction to people of one's own sex</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="sex-homosexuality" required>
+          <option value="none">None</option>
+          <option value="mild">Indirect references to homosexuality</option>
+          <option value="moderate">Kissing between men or between women</option>
+          <option value="intense">Graphic sexual behavior between people of the same gender</option>
+        </select>
+
+        <h2 class="mt-3">Prostitution</h2>
+        <p>
+          Defined as <em>the practice or occupation of engaging in sexual
+          activity with someone for payment</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="sex-prostitution" required>
+          <option value="none">None</option>
+          <option value="mild">Indirect references to prostitution</option>
+          <option value="moderate">Direct references of prostitution in game</option>
+          <option value="intense">Graphic depictions of the act of prostitution</option>
+        </select>
+
+        <h2 class="mt-3">Adultery</h2>
+        <p>
+          Defined as <em>voluntary interaction between a married person and a
+          person who is not their spouse</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="sex-adultery" required>
+          <option value="none">None</option>
+          <option value="mild">Indirect references to adultery</option>
+          <option value="moderate">Direct references of adultery in game</option>
+          <option value="intense">Graphic depictions of the act of adultery</option>
         </select>
       </div>
 
