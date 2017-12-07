@@ -65,6 +65,9 @@ function updateAppData() {
     { id:       'sex-adultery',
       versions: ['1.1']
     },
+    { id:       'sex-appearance',
+      versions: ['1.1']
+    },
     { id:       'language-profanity',
       versions: ['1.0', '1.1']
     },
@@ -317,14 +320,14 @@ function updateAppData() {
         </div>
         <select class="form-control" id="violence-worship" required>
           <option value="none">None</option>
-          <option value="mild">Depictions or references to historical desecration of places of worship</option>
-          <option value="moderate">Depictions of modern-day human desecration of places of worship</option>
-          <option value="intense">Graphic depictions of modern-day desecration of places of worship</option>
+          <option value="mild">Depictions or references to historical desecration</option>
+          <option value="moderate">Depictions of modern-day human desecration</option>
+          <option value="intense">Graphic depictions of modern-day desecration</option>
         </select>
 
         <h2 class="mt-3">Desecration</h2>
         <p>
-          Defined as <em>the action of desecrating something, typically a grave</em>.
+          Defined as <em>the action of desecrating something, typically a human body</em>.
         </p>
         <div class="alert alert-info" role="alert">
           This is an v1.1 cultural sensitivity question.
@@ -336,7 +339,7 @@ function updateAppData() {
           <option value="intense">Graphic depictions of desecration of human bodies, for example being eaten by wild animals</option>
         </select>
 
-        <h2 class="mt-3">Slavery</h2>
+        <h2 class="mt-3">Human Slavery</h2>
         <p>
           Defined as <em>working without proper remuneration or appreciation</em>.
         </p>
@@ -345,9 +348,9 @@ function updateAppData() {
         </div>
         <select class="form-control" id="violence-slavery" required>
           <option value="none">None</option>
-          <option value="mild">Depictions or references to historical human slavery</option>
-          <option value="moderate">Depictions of modern-day human slavery</option>
-          <option value="intense">Graphic depictions of modern-day human slavery</option>
+          <option value="mild">Depictions or references to historical slavery</option>
+          <option value="moderate">Depictions of modern-day slavery</option>
+          <option value="intense">Graphic depictions of modern-day slavery</option>
         </select>
 
       </div>
@@ -467,6 +470,22 @@ function updateAppData() {
           <option value="mild">Indirect references to adultery</option>
           <option value="moderate">Direct references of adultery in game</option>
           <option value="intense">Graphic depictions of the act of adultery</option>
+        </select>
+
+        <h2 class="mt-3">Sexual Appearance</h2>
+        <p>
+          Defined as <em>the appearance of men or women that can be interpreted as beauty</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include a scantily clad character in a video game.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="sex-appearance" required>
+          <option value="none">None</option>
+          <option value="moderate">Scantily clad human characters, e.g. wearing a bikini top</option>
+          <option value="intense">Overtly sexualized human characters, e.g. wearing fetish clothing</option>
         </select>
       </div>
 
