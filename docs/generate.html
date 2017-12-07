@@ -15,6 +15,50 @@
 
 <script>
 
+function copy_xml() {
+  var copyText = document.getElementById("appdata_oars");
+  copyText.select();
+  document.execCommand("Copy");
+}
+
+function advance_tab() {
+
+  // make the next tab header active
+  var e = document.getElementById('tab-list');
+  var children = Array.from(e.children);
+  var cleared = false;
+  var next_section = null
+
+  for (var i in children) {
+    var tab = children[i];
+    var tab_entry = tab.children[0];
+    if (tab_entry.classList.contains('active')) {
+      tab_entry.classList.remove('active');
+      cleared = true;
+    } else if (cleared) {
+      // only use this if it's visible
+      if (tab.style.display != 'none') {
+        next_section = tab.id;
+        tab_entry.classList.add('active');
+        break;
+      }
+    }
+  }
+
+  // make the next tab body active
+  e = document.getElementById('tab-content');
+  children = Array.from(e.children);
+  cleared = false;
+  for (var i in children) {
+    var tab = children[i];
+    if ('tab-' + tab.id == next_section) {
+      tab.classList.add('active');
+    } else {
+      tab.classList.remove('active');
+    }
+  }
+}
+
 function updateAppData() {
   var cats = [
     { id:       'violence-cartoon',
@@ -173,7 +217,7 @@ function updateAppData() {
     <div class="container mt-3">
 
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs" role="tablist" id="tab-list">
       <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#intro" role="tab">Introduction</a>
       </li>
@@ -203,7 +247,7 @@ function updateAppData() {
     <form onChange="updateAppData()">
 
     <!-- Tab panes -->
-    <div class="tab-content">
+    <div class="tab-content" id="tab-content">
 
       <!-- Introduction pane -->
       <div class="tab-pane active mt-3" id="intro" role="tabpanel">
@@ -233,6 +277,7 @@ function updateAppData() {
           <option value="1.0">1.0 (works with all clients)</option>
           <option value="1.1" selected="selected">1.1 (works with GNOME Software &gt;= 3.27.3)</option>
         </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Lets get started!</button>
       </div>
 
       <!-- Violence pane -->
@@ -353,6 +398,7 @@ function updateAppData() {
           <option value="intense">Graphic depictions of modern-day slavery</option>
         </select>
 
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
 
       <!-- Drugs pane -->
@@ -395,6 +441,7 @@ function updateAppData() {
           <option value="mild">References to tobacco products</option>
           <option value="moderate">Use of tobacco products</option>
         </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
 
       <!-- Sex and Nudity pane -->
@@ -487,6 +534,7 @@ function updateAppData() {
           <option value="moderate">Scantily clad human characters, e.g. wearing a bikini top</option>
           <option value="intense">Overtly sexualized human characters, e.g. wearing fetish clothing</option>
         </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
 
       <!-- Language pane -->
@@ -532,6 +580,7 @@ function updateAppData() {
           <option value="moderate">Discrimation designed to cause emotional harm, e.g. racism, or homophobia</option>
           <option value="intense">Explicit discrimination based on gender, sexuality, race or religion, e.g. genocide</option>
         </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
 
       <!-- Money pane -->
@@ -577,6 +626,7 @@ function updateAppData() {
           <option value="mild">Users are encouraged to donate real money, e.g. using Patreon</option>
           <option value="intense">Ability to spend real money in-app, e.g. buying new content or new levels</option>
         </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
 
       <!-- Social pane -->
@@ -642,6 +692,7 @@ function updateAppData() {
           <option value="none">None</option>
           <option value="intense">Sharing physical location to other users e.g. a postal address</option>
         </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Show me the result!</button>
       </div>
 
       <!-- XML pane -->
@@ -651,6 +702,7 @@ function updateAppData() {
         </p>
         <textarea id="appdata_oars" rows="25" cols="80">
         </textarea>
+        <button type="button" onClick="copy_xml()" class="btn btn-success mt-4 float-right">Copy to the clipboard</button>
       </div>
     </div>
 
