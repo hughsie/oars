@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<!-- Copyright (C) 2015-2017 Richard Hughes <richard@hughsie.com>
+<!-- Copyright (C) 2015-2018 Richard Hughes <richard@hughsie.com>
      Licensed under the GNU General Public License Version 2 -->
 <html lang="en">
   <head>
@@ -244,7 +244,7 @@ function updateAppData() {
       </li>
     </ul>
 
-    <form onChange="updateAppData()">
+    <form onChange="updateAppData()" class="clearfix">
 
     <!-- Tab panes -->
     <div class="tab-content" id="tab-content">
@@ -715,10 +715,17 @@ function updateAppData() {
     <hr>
     <script>updateAppData();</script>
     <div class="container">
-      <footer>
-        <p>
-         Copyright <a href="mailto:richard@hughsie.com">Richard Hughes 2015-2017</a>
-        </p>
+      <footer class="row">
+        <div class="col-md">
+          <p>
+           © <a href="mailto:richard@hughsie.com">Richard Hughes 2015–2018</a>
+          </p>
+        </div>
+        <div class="col-md-auto">
+          <p>
+           <a href="https://github.com/hughsie/oars">Contribute on GitHub</a>
+          </p>
+        </div>
       </footer>
     </div>
   </body>
