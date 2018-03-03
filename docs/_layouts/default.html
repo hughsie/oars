@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<!-- Copyright (C) 2015-2018 Richard Hughes <richard@hughsie.com>
+     Licensed under the GNU General Public License Version 2 -->
+<html lang="en">
+  <head>
+    <title>OARS: Open Age Ratings Service</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico"/>
+  </head>
+  <body>
+    <!-- navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html">OARS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+
+    <div class="container mt-3">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="tab-list">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#intro" role="tab">Introduction</a>
+      </li>
+      <li class="nav-item" id="tab-violence">
+        <a class="nav-link" data-toggle="tab" href="#violence" role="tab">Violence</a>
+      </li>
+      <li class="nav-item" id="tab-drugs">
+        <a class="nav-link" data-toggle="tab" href="#drugs" role="tab">Drugs</a>
+      </li>
+      <li class="nav-item" id="tab-sex">
+        <a class="nav-link" data-toggle="tab" href="#sex" role="tab">Sex and Nudity</a>
+      </li>
+      <li class="nav-item" id="tab-language">
+        <a class="nav-link" data-toggle="tab" href="#language" role="tab">Language</a>
+      </li>
+      <li class="nav-item" id="tab-money">
+        <a class="nav-link" data-toggle="tab" href="#money" role="tab">Money</a>
+      </li>
+      <li class="nav-item" id="tab-social">
+        <a class="nav-link" data-toggle="tab" href="#social" role="tab">Social</a>
+      </li>
+      <li class="nav-item" id="tab-xml">
+        <a class="nav-link" data-toggle="tab" href="#xml" role="tab">XML</a>
+      </li>
+    </ul>
+
+    {{ content }}
+    
+    <div class="container">
+      <footer class="row">
+        <div class="col-md">
+          <p>
+           © <a href="mailto:richard@hughsie.com">Richard Hughes 2015–2018</a>
+          </p>
+        </div>
+        <div class="col-md-auto">
+          <p>
+           <a href="https://github.com/hughsie/oars">Contribute on GitHub</a>
+          </p>
+        </div>
+      </footer>
+    </div>
+
+  </body>
+</html>

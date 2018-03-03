@@ -13,3 +13,9 @@ Parents and responsible adults can make informed choices before installing softw
 
 ### Developers
 Creating the required AppStream XML markup is 100% free and no payment is required to any certification company.
+
+## Local Development
+
+OARS uses Jekyll and GitHub Pages. Follow GitHub's [official local development documentation](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/).
+
+Run `bundle exec jekyll serve` on your local machine to test local changes.
