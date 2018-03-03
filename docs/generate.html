@@ -4,470 +4,501 @@ layout: default
 ---
 <script src="scripts/generate.js"></script>
 
-<form onChange="updateAppData()" class="clearfix">
-  <!-- Tab panes -->
-  <div class="tab-content" id="tab-content">
+<div class="container mt-3">
 
-    <!-- Introduction pane -->
-    <div class="tab-pane active mt-3" id="intro" role="tabpanel">
-      <p>
-        By answering all the questions you can generate AppStream-compatible markup
-        for the upstream AppData file.
-      </p>
-      <p>
-        If the user is able to <q>enable</q> NSFW or <q>adult</q> content, then this
-        should be included in the assessment even if it is turned off by default.
-      </p>
-      <p>
-        What type of component are you generating content for:
-      </p>
-      <select class="form-control" id="component-kind" required>
-        <option value="game-online">Game with networking</option>
-        <option value="game-offline">Game that does not use any kind of network access</option>
-        <option value="app-online">Application that can connect to the Internet</option>
-        <option value="app-offline">Application that does not use the Internet</option>
-      </select>
-      <p class="mt-3">
-        OARS has multiple versions, and the newer versions include more questions
-        involving specific cultural and religious sensitivies.
-        What version of OARS metadata do you want to produce:
-      </p>
-      <select class="form-control" id="api-version" required>
-        <option value="1.0">1.0 (works with all clients)</option>
-        <option value="1.1" selected="selected">1.1 (works with GNOME Software &gt;= 3.27.3)</option>
-      </select>
-      <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Lets get started!</button>
-    </div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" id="tab-list">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#intro" role="tab">Introduction</a>
+    </li>
+    <li class="nav-item" id="tab-violence">
+      <a class="nav-link" data-toggle="tab" href="#violence" role="tab">Violence</a>
+    </li>
+    <li class="nav-item" id="tab-drugs">
+      <a class="nav-link" data-toggle="tab" href="#drugs" role="tab">Drugs</a>
+    </li>
+    <li class="nav-item" id="tab-sex">
+      <a class="nav-link" data-toggle="tab" href="#sex" role="tab">Sex and Nudity</a>
+    </li>
+    <li class="nav-item" id="tab-language">
+      <a class="nav-link" data-toggle="tab" href="#language" role="tab">Language</a>
+    </li>
+    <li class="nav-item" id="tab-money">
+      <a class="nav-link" data-toggle="tab" href="#money" role="tab">Money</a>
+    </li>
+    <li class="nav-item" id="tab-social">
+      <a class="nav-link" data-toggle="tab" href="#social" role="tab">Social</a>
+    </li>
+    <li class="nav-item" id="tab-xml">
+      <a class="nav-link" data-toggle="tab" href="#xml" role="tab">XML</a>
+    </li>
+  </ul>
 
-    <!-- Violence pane -->
-    <div class="tab-pane mt-3" id="violence" role="tabpanel">
-      <h2 class="mt-3">Cartoon Violence</h2>
-      <p>
-        Defined as <em>fictional characters depicted
-        in an animated film or a comic strip</em> which do not look human.
-      </p>
-      <p class="text-secondary">
-        For example, this would include an animated worm fighting with a bird.
-      </p>
-      <select class="form-control" id="violence-cartoon" required>
-        <option value="none">None</option>
-        <option value="mild">Cartoon characters in unsafe situations</option>
-        <option value="moderate">Cartoon characters in aggressive conflict</option>
-        <option value="intense">Cartoon characters showing graphic violence</option>
-      </select>
+  <form onChange="updateAppData()" class="clearfix">
+    <!-- Tab panes -->
+    <div class="tab-content" id="tab-content">
 
-      <h2 class="mt-3">Fantasy Violence</h2>
-      <p>
-        Defined as <em>characters easily distinguishable from reality</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include human units in a turn-taking isometric game.
-      </p>
-      <select class="form-control" id="violence-fantasy" required>
-        <option value="none">None</option>
-        <option value="mild">Fantasy characters in unsafe situations</option>
-        <option value="moderate">Fantasy characters in aggressive conflict</option>
-        <option value="intense">Fantasy characters with graphic violence</option>
-      </select>
-
-      <h2 class="mt-3">Realistic Violence</h2>
-      <p>
-        Defined as <em>characters not easily distinguishable from reality</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include a user shooting a gun at a human characters.
-      </p>
-      <select class="form-control" id="violence-realistic" required>
-        <option value="none">None</option>
-        <option value="mild">Realistic characters in unsafe situations</option>
-        <option value="moderate">Realistic characters in depictions of aggressive conflict</option>
-        <option value="intense">Realistic characters with graphic violence</option>
-      </select>
-
-      <h2 class="mt-3">Bloodshed</h2>
-      <p>
-        Defined as <em>the killing or wounding of people</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include a user shooting a gun at a human
-        head, causing it to explode.
-      </p>
-      <select class="form-control" id="violence-bloodshed" required>
-        <option value="none">None</option>
-        <option value="mild">Unrealistic bloodshed</option>
-        <option value="moderate">Realistic bloodshed</option>
-        <option value="intense">Depictions of bloodshed and the mutilation of body parts</option>
-      </select>
-
-      <h2 class="mt-3">Sexual Violence</h2>
-      <p>
-        Defined as <em>any unwanted sexual act or activity</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include non-consensual sex or grabbing the
-        crotch of another user.
-      </p>
-      <select class="form-control" id="violence-sexual" required>
-        <option value="none">None</option>
-        <option value="intense">Rape or other violent sexual behavior</option>
-      </select>
-
-      <h2 class="mt-3">Religious Violence</h2>
-      <p>
-        Defined as <em>violence targeted to places of worship</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include blowing up a church in a war game or
-        referencing the crusades between the Christians and Muslims.
-      </p>
-      <div class="alert alert-info" role="alert">
-        This is an v1.1 cultural sensitivity question.
+      <!-- Introduction pane -->
+      <div class="tab-pane active mt-3" id="intro" role="tabpanel">
+        <p>
+          By answering all the questions you can generate AppStream-compatible markup
+          for the upstream AppData file.
+        </p>
+        <p>
+          If the user is able to <q>enable</q> NSFW or <q>adult</q> content, then this
+          should be included in the assessment even if it is turned off by default.
+        </p>
+        <p>
+          What type of component are you generating content for:
+        </p>
+        <select class="form-control" id="component-kind" required>
+          <option value="game-online">Game with networking</option>
+          <option value="game-offline">Game that does not use any kind of network access</option>
+          <option value="app-online">Application that can connect to the Internet</option>
+          <option value="app-offline">Application that does not use the Internet</option>
+        </select>
+        <p class="mt-3">
+          OARS has multiple versions, and the newer versions include more questions
+          involving specific cultural and religious sensitivies.
+          What version of OARS metadata do you want to produce:
+        </p>
+        <select class="form-control" id="api-version" required>
+          <option value="1.0">1.0 (works with all clients)</option>
+          <option value="1.1" selected="selected">1.1 (works with GNOME Software &gt;= 3.27.3)</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Lets get started!</button>
       </div>
-      <select class="form-control" id="violence-worship" required>
-        <option value="none">None</option>
-        <option value="mild">Depictions or references to historical desecration</option>
-        <option value="moderate">Depictions of modern-day human desecration</option>
-        <option value="intense">Graphic depictions of modern-day desecration</option>
-      </select>
 
-      <h2 class="mt-3">Desecration</h2>
-      <p>
-        Defined as <em>the action of desecrating something, typically a human body</em>.
-      </p>
-      <div class="alert alert-info" role="alert">
-        This is an v1.1 cultural sensitivity question.
+      <!-- Violence pane -->
+      <div class="tab-pane mt-3" id="violence" role="tabpanel">
+        <h2 class="mt-3">Cartoon Violence</h2>
+        <p>
+          Defined as <em>fictional characters depicted
+          in an animated film or a comic strip</em> which do not look human.
+        </p>
+        <p class="text-secondary">
+          For example, this would include an animated worm fighting with a bird.
+        </p>
+        <select class="form-control" id="violence-cartoon" required>
+          <option value="none">None</option>
+          <option value="mild">Cartoon characters in unsafe situations</option>
+          <option value="moderate">Cartoon characters in aggressive conflict</option>
+          <option value="intense">Cartoon characters showing graphic violence</option>
+        </select>
+
+        <h2 class="mt-3">Fantasy Violence</h2>
+        <p>
+          Defined as <em>characters easily distinguishable from reality</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include human units in a turn-taking isometric game.
+        </p>
+        <select class="form-control" id="violence-fantasy" required>
+          <option value="none">None</option>
+          <option value="mild">Fantasy characters in unsafe situations</option>
+          <option value="moderate">Fantasy characters in aggressive conflict</option>
+          <option value="intense">Fantasy characters with graphic violence</option>
+        </select>
+
+        <h2 class="mt-3">Realistic Violence</h2>
+        <p>
+          Defined as <em>characters not easily distinguishable from reality</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include a user shooting a gun at a human characters.
+        </p>
+        <select class="form-control" id="violence-realistic" required>
+          <option value="none">None</option>
+          <option value="mild">Realistic characters in unsafe situations</option>
+          <option value="moderate">Realistic characters in depictions of aggressive conflict</option>
+          <option value="intense">Realistic characters with graphic violence</option>
+        </select>
+
+        <h2 class="mt-3">Bloodshed</h2>
+        <p>
+          Defined as <em>the killing or wounding of people</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include a user shooting a gun at a human
+          head, causing it to explode.
+        </p>
+        <select class="form-control" id="violence-bloodshed" required>
+          <option value="none">None</option>
+          <option value="mild">Unrealistic bloodshed</option>
+          <option value="moderate">Realistic bloodshed</option>
+          <option value="intense">Depictions of bloodshed and the mutilation of body parts</option>
+        </select>
+
+        <h2 class="mt-3">Sexual Violence</h2>
+        <p>
+          Defined as <em>any unwanted sexual act or activity</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include non-consensual sex or grabbing the
+          crotch of another user.
+        </p>
+        <select class="form-control" id="violence-sexual" required>
+          <option value="none">None</option>
+          <option value="intense">Rape or other violent sexual behavior</option>
+        </select>
+
+        <h2 class="mt-3">Religious Violence</h2>
+        <p>
+          Defined as <em>violence targeted to places of worship</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include blowing up a church in a war game or
+          referencing the crusades between the Christians and Muslims.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="violence-worship" required>
+          <option value="none">None</option>
+          <option value="mild">Depictions or references to historical desecration</option>
+          <option value="moderate">Depictions of modern-day human desecration</option>
+          <option value="intense">Graphic depictions of modern-day desecration</option>
+        </select>
+
+        <h2 class="mt-3">Desecration</h2>
+        <p>
+          Defined as <em>the action of desecrating something, typically a human body</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="violence-desecration" required>
+          <option value="none">None</option>
+          <option value="mild">Visible dead human remains</option>
+          <option value="moderate">Dead human remains that are exposed to the elements</option>
+          <option value="intense">Graphic depictions of desecration of human bodies, for example being eaten by wild animals</option>
+        </select>
+
+        <h2 class="mt-3">Human Slavery</h2>
+        <p>
+          Defined as <em>working without proper remuneration or appreciation</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="violence-slavery" required>
+          <option value="none">None</option>
+          <option value="mild">Depictions or references to historical slavery</option>
+          <option value="moderate">Depictions of modern-day slavery</option>
+          <option value="intense">Graphic depictions of modern-day slavery</option>
+        </select>
+
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
-      <select class="form-control" id="violence-desecration" required>
-        <option value="none">None</option>
-        <option value="mild">Visible dead human remains</option>
-        <option value="moderate">Dead human remains that are exposed to the elements</option>
-        <option value="intense">Graphic depictions of desecration of human bodies, for example being eaten by wild animals</option>
-      </select>
 
-      <h2 class="mt-3">Human Slavery</h2>
-      <p>
-        Defined as <em>working without proper remuneration or appreciation</em>.
-      </p>
-      <div class="alert alert-info" role="alert">
-        This is an v1.1 cultural sensitivity question.
+      <!-- Drugs pane -->
+      <div class="tab-pane mt-3" id="drugs" role="tabpanel">
+        <h2 class="mt-3">Alcohol</h2>
+        <p>
+        </p>
+        <p class="text-secondary">
+          For example, this would include seeing a character drink a beer.
+        </p>
+        <select class="form-control" id="drugs-alcohol" required>
+          <option value="none">None</option>
+          <option value="mild">References to alcoholic beverages</option>
+          <option value="moderate">Use of alcoholic beverages</option>
+        </select>
+
+        <h2 class="mt-3">Narcotics</h2>
+        <p>
+          Defined as <em>an addictive drug affecting mood or behaviour</em>
+          that is specifically illegal in at least one country.
+        </p>
+        <p class="text-secondary">
+          For example, this would include references to <q>getting high</q>.
+        </p>
+        <select class="form-control" id="drugs-narcotics" required>
+          <option value="none">None</option>
+          <option value="mild">References to illicit drugs</option>
+          <option value="moderate">Use of illicit drugs</option>
+        </select>
+
+        <h2 class="mt-3">Tobacco</h2>
+        <p>
+          Defined as <em>any nicotine-rich product</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include references to chewing tobacco.
+        </p>
+        <select class="form-control" id="drugs-tobacco" required>
+          <option value="none">None</option>
+          <option value="mild">References to tobacco products</option>
+          <option value="moderate">Use of tobacco products</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
-      <select class="form-control" id="violence-slavery" required>
-        <option value="none">None</option>
-        <option value="mild">Depictions or references to historical slavery</option>
-        <option value="moderate">Depictions of modern-day slavery</option>
-        <option value="intense">Graphic depictions of modern-day slavery</option>
-      </select>
 
-      <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
-    </div>
+      <!-- Sex and Nudity pane -->
+      <div class="tab-pane mt-3" id="sex" role="tabpanel">
+        <h2 class="mt-3">Nudity</h2>
+        <p>
+          Defined as <em>a state of undress</em>, and in this case
+          specifically specifically nudity likely to cause offense.
+        </p>
+        <p class="text-secondary">
+          For example, this would include topless cheerleaders.
+        </p>
+        <select class="form-control" id="sex-nudity" required>
+          <option value="none">None</option>
+          <option value="mild">Brief artistic nudity</option>
+          <option value="moderate">Prolonged nudity</option>
+          <option value="intense">Explicit nudity showing nipples or sexual organs</option>
+        </select>
 
-    <!-- Drugs pane -->
-    <div class="tab-pane mt-3" id="drugs" role="tabpanel">
-      <h2 class="mt-3">Alcohol</h2>
-      <p>
-      </p>
-      <p class="text-secondary">
-        For example, this would include seeing a character drink a beer.
-      </p>
-      <select class="form-control" id="drugs-alcohol" required>
-        <option value="none">None</option>
-        <option value="mild">References to alcoholic beverages</option>
-        <option value="moderate">Use of alcoholic beverages</option>
-      </select>
+        <h2 class="mt-3">Sexual Themes</h2>
+        <p>
+          Defined as <em>in reference to a sexual act</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include blowing a kiss to another character.
+        </p>
+        <select class="form-control" id="sex-themes" required>
+          <option value="none">None</option>
+          <option value="mild">Provocative references or depictions</option>
+          <option value="moderate">Sexual references or depictions</option>
+          <option value="intense">Graphic sexual behavior</option>
+        </select>
 
-      <h2 class="mt-3">Narcotics</h2>
-      <p>
-        Defined as <em>an addictive drug affecting mood or behaviour</em>
-        that is specifically illegal in at least one country.
-      </p>
-      <p class="text-secondary">
-        For example, this would include references to <q>getting high</q>.
-      </p>
-      <select class="form-control" id="drugs-narcotics" required>
-        <option value="none">None</option>
-        <option value="mild">References to illicit drugs</option>
-        <option value="moderate">Use of illicit drugs</option>
-      </select>
+        <h2 class="mt-3">Homosexuality</h2>
+        <p>
+          Defined as <em>sexual attraction to people of one's own sex</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="sex-homosexuality" required>
+          <option value="none">None</option>
+          <option value="mild">Indirect references to homosexuality</option>
+          <option value="moderate">Kissing between men or between women</option>
+          <option value="intense">Graphic sexual behavior between people of the same gender</option>
+        </select>
 
-      <h2 class="mt-3">Tobacco</h2>
-      <p>
-        Defined as <em>any nicotine-rich product</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include references to chewing tobacco.
-      </p>
-      <select class="form-control" id="drugs-tobacco" required>
-        <option value="none">None</option>
-        <option value="mild">References to tobacco products</option>
-        <option value="moderate">Use of tobacco products</option>
-      </select>
-      <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
-    </div>
+        <h2 class="mt-3">Prostitution</h2>
+        <p>
+          Defined as <em>the practice or occupation of engaging in sexual
+          activity with someone for payment</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="sex-prostitution" required>
+          <option value="none">None</option>
+          <option value="mild">Indirect references to prostitution</option>
+          <option value="moderate">Direct references of prostitution in game</option>
+          <option value="intense">Graphic depictions of the act of prostitution</option>
+        </select>
 
-    <!-- Sex and Nudity pane -->
-    <div class="tab-pane mt-3" id="sex" role="tabpanel">
-      <h2 class="mt-3">Nudity</h2>
-      <p>
-        Defined as <em>a state of undress</em>, and in this case
-        specifically specifically nudity likely to cause offense.
-      </p>
-      <p class="text-secondary">
-        For example, this would include topless cheerleaders.
-      </p>
-      <select class="form-control" id="sex-nudity" required>
-        <option value="none">None</option>
-        <option value="mild">Brief artistic nudity</option>
-        <option value="moderate">Prolonged nudity</option>
-        <option value="intense">Explicit nudity showing nipples or sexual organs</option>
-      </select>
+        <h2 class="mt-3">Adultery</h2>
+        <p>
+          Defined as <em>voluntary interaction between a married person and a
+          person who is not their spouse</em>.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="sex-adultery" required>
+          <option value="none">None</option>
+          <option value="mild">Indirect references to adultery</option>
+          <option value="moderate">Direct references of adultery in game</option>
+          <option value="intense">Graphic depictions of the act of adultery</option>
+        </select>
 
-      <h2 class="mt-3">Sexual Themes</h2>
-      <p>
-        Defined as <em>in reference to a sexual act</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include blowing a kiss to another character.
-      </p>
-      <select class="form-control" id="sex-themes" required>
-        <option value="none">None</option>
-        <option value="mild">Provocative references or depictions</option>
-        <option value="moderate">Sexual references or depictions</option>
-        <option value="intense">Graphic sexual behavior</option>
-      </select>
-
-      <h2 class="mt-3">Homosexuality</h2>
-      <p>
-        Defined as <em>sexual attraction to people of one's own sex</em>.
-      </p>
-      <div class="alert alert-info" role="alert">
-        This is an v1.1 cultural sensitivity question.
+        <h2 class="mt-3">Sexual Appearance</h2>
+        <p>
+          Defined as <em>appearance of human or human-like characters that are
+          sexualized in some way</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include a scantily clad character in a video game.
+        </p>
+        <div class="alert alert-info" role="alert">
+          This is an v1.1 cultural sensitivity question.
+        </div>
+        <select class="form-control" id="sex-appearance" required>
+          <option value="none">None</option>
+          <option value="moderate">Scantily clad human characters, e.g. wearing a bikini top</option>
+          <option value="intense">Overtly sexualized human characters, e.g. wearing fetish clothing</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
-      <select class="form-control" id="sex-homosexuality" required>
-        <option value="none">None</option>
-        <option value="mild">Indirect references to homosexuality</option>
-        <option value="moderate">Kissing between men or between women</option>
-        <option value="intense">Graphic sexual behavior between people of the same gender</option>
-      </select>
 
-      <h2 class="mt-3">Prostitution</h2>
-      <p>
-        Defined as <em>the practice or occupation of engaging in sexual
-        activity with someone for payment</em>.
-      </p>
-      <div class="alert alert-info" role="alert">
-        This is an v1.1 cultural sensitivity question.
+      <!-- Language pane -->
+      <div class="tab-pane mt-3" id="language" role="tabpanel">
+
+        <h2 class="mt-3">Profanity</h2>
+        <p>
+          Defined as <em>blasphemous or obscene language</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include most curse words.
+        </p>
+        <select class="form-control" id="language-profanity" required>
+          <option value="none">None</option>
+          <option value="mild">Mild or infrequent use of profanity e.g. 'Dufus'</option>
+          <option value="moderate">Moderate use of profanity e.g. 'Shit'</option>
+          <option value="intense">Strong or frequent use of profanity e.g. 'Fuck'</option>
+        </select>
+
+        <h2 class="mt-3">Humor</h2>
+        <p>
+          Defined as <em>the quality of being amusing</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include in-app jokes.
+        </p>
+        <select class="form-control" id="language-humor" required>
+          <option value="none">None</option>
+          <option value="mild">Slapstick humor</option>
+          <option value="moderate">Vulgar or bathroom humor</option>
+          <option value="intense">Mature or sexual humor</option>
+        </select>
+
+        <h2 class="mt-3">Discrimination</h2>
+        <p>
+          Defined as <em>the unjust or prejudicial treatment of
+          different categories of people, especially on the grounds of race,
+          age, or sex</em>.
+        </p>
+        <select class="form-control" id="language-discrimination" required>
+          <option value="none">None</option>
+          <option value="mild">Negativity towards a specific group of people, e.g. ethnic jokes</option>
+          <option value="moderate">Discrimation designed to cause emotional harm, e.g. racism, or homophobia</option>
+          <option value="intense">Explicit discrimination based on gender, sexuality, race or religion, e.g. genocide</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
-      <select class="form-control" id="sex-prostitution" required>
-        <option value="none">None</option>
-        <option value="mild">Indirect references to prostitution</option>
-        <option value="moderate">Direct references of prostitution in game</option>
-        <option value="intense">Graphic depictions of the act of prostitution</option>
-      </select>
 
-      <h2 class="mt-3">Adultery</h2>
-      <p>
-        Defined as <em>voluntary interaction between a married person and a
-        person who is not their spouse</em>.
-      </p>
-      <div class="alert alert-info" role="alert">
-        This is an v1.1 cultural sensitivity question.
+      <!-- Money pane -->
+      <div class="tab-pane mt-3" id="money" role="tabpanel">
+
+        <h2 class="mt-3">Advertising</h2>
+        <p>
+          Defined as <em>the activity of producing advertisements for commercial
+          products or services</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include banners showing the Coca-Cola logo shown
+          in a Soccer game.
+        </p>
+        <select class="form-control" id="money-advertising" required>
+          <option value="none">None</option>
+          <option value="mild">Product placement, e.g. billboards in a football game</option>
+          <option value="moderate">Explicit references to specific brands or trademarked products</option>
+          <option value="intense">Users are encouraged to purchase specific real-world items</option>
+        </select>
+
+        <h2 class="mt-3">Gambling</h2>
+        <p>
+          Defined as <em>taking a risky action in the hope of a desired result</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include spinning a wheel to get in-app credits.
+        </p>
+        <select class="form-control" id="money-gambling" required>
+          <option value="none">None</option>
+          <option value="mild">Gambling on random events using tokens or credits</option>
+          <option value="moderate">Gambling using fictional money</option>
+          <option value="intense">Gambling using real money</option>
+        </select>
+
+        <h2 class="mt-3">In-App Purchases</h2>
+        <p>
+          Defined as <em>items or points that a user can buy for use within a
+          virtual world to improve a character or enhance the playing experience</em>.
+        </p>
+        <select class="form-control" id="money-purchasing" required>
+          <option value="none">None</option>
+          <option value="mild">Users are encouraged to donate real money, e.g. using Patreon</option>
+          <option value="intense">Ability to spend real money in-app, e.g. buying new content or new levels</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
-      <select class="form-control" id="sex-adultery" required>
-        <option value="none">None</option>
-        <option value="mild">Indirect references to adultery</option>
-        <option value="moderate">Direct references of adultery in game</option>
-        <option value="intense">Graphic depictions of the act of adultery</option>
-      </select>
 
-      <h2 class="mt-3">Sexual Appearance</h2>
-      <p>
-        Defined as <em>appearance of human or human-like characters that are
-        sexualized in some way</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include a scantily clad character in a video game.
-      </p>
-      <div class="alert alert-info" role="alert">
-        This is an v1.1 cultural sensitivity question.
+      <!-- Social pane -->
+      <div class="tab-pane mt-3" id="social" role="tabpanel">
+
+        <h2 class="mt-3">Online Text-only Messaging</h2>
+        <p>
+          Defined as <em>any messaging system connected to the Internet</em>.
+        </p>
+        <select class="form-control" id="social-chat" required>
+          <option value="none">None</option>
+          <option value="mild">User-to-user game interactions without chat functionality e.g. playing chess</option>
+          <option value="moderate">Moderated messaging between users</option>
+          <option value="intense">Uncontrolled chat functionality between users</option>
+        </select>
+
+        <h2 class="mt-3">Online Audio and Video Messaging</h2>
+        <p>
+          Defined as <em>any multimedia messaging system connected to the Internet</em>.
+        </p>
+        <select class="form-control" id="social-audio" required>
+          <option value="none">None</option>
+          <option value="moderate">Moderated audio or video chat between users</option>
+          <option value="intense">Uncontrolled audio or video chat between users</option>
+        </select>
+
+        <h2 class="mt-3">Contact Details</h2>
+        <p>
+          Defined as <em>sharing identifiable details with other users to allow
+          out-of-band communication</em>.
+        </p>
+        <select class="form-control" id="social-contacts" required>
+          <option value="none">None</option>
+          <option value="intense">Sharing Twitter, Facebook or email addresses</option>
+        </select>
+
+        <h2 class="mt-3">Information Sharing</h2>
+        <p>
+          Defined as <em>sharing information with a legal entiry</em> typically
+          used for advertising or for sending back diagnostic data.
+        </p>
+        <p class="text-secondary">
+          For example, this would include sending your purchasing history to Amazon.
+        </p>
+        <select class="form-control" id="social-info" required>
+          <option value="none">None</option>
+          <option value="mild">Checking for the latest application version (typically acting as a user-counter)</option>
+          <option value="moderate">Sharing diagnostic data not identifiable to the user, e.g. profiling data</option>
+          <option value="intense">Sharing information identifiable to the user, e.g. crash dumps</option>
+        </select>
+
+        <h2 class="mt-3">Location Sharing</h2>
+        <p>
+          Defined as <em>sharing your physical real-time location</em>.
+        </p>
+        <p class="text-secondary">
+          For example, this would include uploading the GPS co-ordinates of your
+          current location.
+          NOTE: This does <b>not</b> include heuristic based location services,
+          e.g. GeoIP and others.
+        </p>
+        <select class="form-control" id="social-location" required>
+          <option value="none">None</option>
+          <option value="intense">Sharing physical location to other users e.g. a postal address</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Show me the result!</button>
       </div>
-      <select class="form-control" id="sex-appearance" required>
-        <option value="none">None</option>
-        <option value="moderate">Scantily clad human characters, e.g. wearing a bikini top</option>
-        <option value="intense">Overtly sexualized human characters, e.g. wearing fetish clothing</option>
-      </select>
-      <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
+
+      <!-- XML pane -->
+      <div class="tab-pane mt-3" id="xml" role="tabpanel">
+        <p>
+          The following markup can be pasted into the existing application AppData file.
+        </p>
+        <textarea id="appdata_oars" rows="25" cols="80">
+        </textarea>
+        <button type="button" onClick="copy_xml()" class="btn btn-success mt-4 float-right">Copy to the clipboard</button>
+      </div>
     </div>
 
-    <!-- Language pane -->
-    <div class="tab-pane mt-3" id="language" role="tabpanel">
-
-      <h2 class="mt-3">Profanity</h2>
-      <p>
-        Defined as <em>blasphemous or obscene language</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include most curse words.
-      </p>
-      <select class="form-control" id="language-profanity" required>
-        <option value="none">None</option>
-        <option value="mild">Mild or infrequent use of profanity e.g. 'Dufus'</option>
-        <option value="moderate">Moderate use of profanity e.g. 'Shit'</option>
-        <option value="intense">Strong or frequent use of profanity e.g. 'Fuck'</option>
-      </select>
-
-      <h2 class="mt-3">Humor</h2>
-      <p>
-        Defined as <em>the quality of being amusing</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include in-app jokes.
-      </p>
-      <select class="form-control" id="language-humor" required>
-        <option value="none">None</option>
-        <option value="mild">Slapstick humor</option>
-        <option value="moderate">Vulgar or bathroom humor</option>
-        <option value="intense">Mature or sexual humor</option>
-      </select>
-
-      <h2 class="mt-3">Discrimination</h2>
-      <p>
-        Defined as <em>the unjust or prejudicial treatment of
-        different categories of people, especially on the grounds of race,
-        age, or sex</em>.
-      </p>
-      <select class="form-control" id="language-discrimination" required>
-        <option value="none">None</option>
-        <option value="mild">Negativity towards a specific group of people, e.g. ethnic jokes</option>
-        <option value="moderate">Discrimation designed to cause emotional harm, e.g. racism, or homophobia</option>
-        <option value="intense">Explicit discrimination based on gender, sexuality, race or religion, e.g. genocide</option>
-      </select>
-      <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
-    </div>
-
-    <!-- Money pane -->
-    <div class="tab-pane mt-3" id="money" role="tabpanel">
-
-      <h2 class="mt-3">Advertising</h2>
-      <p>
-        Defined as <em>the activity of producing advertisements for commercial
-        products or services</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include banners showing the Coca-Cola logo shown
-        in a Soccer game.
-      </p>
-      <select class="form-control" id="money-advertising" required>
-        <option value="none">None</option>
-        <option value="mild">Product placement, e.g. billboards in a football game</option>
-        <option value="moderate">Explicit references to specific brands or trademarked products</option>
-        <option value="intense">Users are encouraged to purchase specific real-world items</option>
-      </select>
-
-      <h2 class="mt-3">Gambling</h2>
-      <p>
-        Defined as <em>taking a risky action in the hope of a desired result</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include spinning a wheel to get in-app credits.
-      </p>
-      <select class="form-control" id="money-gambling" required>
-        <option value="none">None</option>
-        <option value="mild">Gambling on random events using tokens or credits</option>
-        <option value="moderate">Gambling using fictional money</option>
-        <option value="intense">Gambling using real money</option>
-      </select>
-
-      <h2 class="mt-3">In-App Purchases</h2>
-      <p>
-        Defined as <em>items or points that a user can buy for use within a
-        virtual world to improve a character or enhance the playing experience</em>.
-      </p>
-      <select class="form-control" id="money-purchasing" required>
-        <option value="none">None</option>
-        <option value="mild">Users are encouraged to donate real money, e.g. using Patreon</option>
-        <option value="intense">Ability to spend real money in-app, e.g. buying new content or new levels</option>
-      </select>
-      <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
-    </div>
-
-    <!-- Social pane -->
-    <div class="tab-pane mt-3" id="social" role="tabpanel">
-
-      <h2 class="mt-3">Online Text-only Messaging</h2>
-      <p>
-        Defined as <em>any messaging system connected to the Internet</em>.
-      </p>
-      <select class="form-control" id="social-chat" required>
-        <option value="none">None</option>
-        <option value="mild">User-to-user game interactions without chat functionality e.g. playing chess</option>
-        <option value="moderate">Moderated messaging between users</option>
-        <option value="intense">Uncontrolled chat functionality between users</option>
-      </select>
-
-      <h2 class="mt-3">Online Audio and Video Messaging</h2>
-      <p>
-        Defined as <em>any multimedia messaging system connected to the Internet</em>.
-      </p>
-      <select class="form-control" id="social-audio" required>
-        <option value="none">None</option>
-        <option value="moderate">Moderated audio or video chat between users</option>
-        <option value="intense">Uncontrolled audio or video chat between users</option>
-      </select>
-
-      <h2 class="mt-3">Contact Details</h2>
-      <p>
-        Defined as <em>sharing identifiable details with other users to allow
-        out-of-band communication</em>.
-      </p>
-      <select class="form-control" id="social-contacts" required>
-        <option value="none">None</option>
-        <option value="intense">Sharing Twitter, Facebook or email addresses</option>
-      </select>
-
-      <h2 class="mt-3">Information Sharing</h2>
-      <p>
-        Defined as <em>sharing information with a legal entiry</em> typically
-        used for advertising or for sending back diagnostic data.
-      </p>
-      <p class="text-secondary">
-        For example, this would include sending your purchasing history to Amazon.
-      </p>
-      <select class="form-control" id="social-info" required>
-        <option value="none">None</option>
-        <option value="mild">Checking for the latest application version (typically acting as a user-counter)</option>
-        <option value="moderate">Sharing diagnostic data not identifiable to the user, e.g. profiling data</option>
-        <option value="intense">Sharing information identifiable to the user, e.g. crash dumps</option>
-      </select>
-
-      <h2 class="mt-3">Location Sharing</h2>
-      <p>
-        Defined as <em>sharing your physical real-time location</em>.
-      </p>
-      <p class="text-secondary">
-        For example, this would include uploading the GPS co-ordinates of your
-        current location.
-        NOTE: This does <b>not</b> include heuristic based location services,
-        e.g. GeoIP and others.
-      </p>
-      <select class="form-control" id="social-location" required>
-        <option value="none">None</option>
-        <option value="intense">Sharing physical location to other users e.g. a postal address</option>
-      </select>
-      <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Show me the result!</button>
-    </div>
-
-    <!-- XML pane -->
-    <div class="tab-pane mt-3" id="xml" role="tabpanel">
-      <p>
-        The following markup can be pasted into the existing application AppData file.
-      </p>
-      <textarea id="appdata_oars" rows="25" cols="80">
-      </textarea>
-      <button type="button" onClick="copy_xml()" class="btn btn-success mt-4 float-right">Copy to the clipboard</button>
-    </div>
-  </div>
-
-</form>
+  </form>
+</div>
 
 <hr />
 
