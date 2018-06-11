@@ -148,15 +148,21 @@ function updateAppData() {
   var api_version = e.options[e.selectedIndex].value;
 
   // generate the XML
-  xml = '  <content_rating type="oars-' + api_version + '">\n'
+  var xml = ''
   for (var i in cats) {
     var e = document.getElementById(cats[i].id);
     if (!cats[i].versions.includes(api_version))
       continue
     var val = e.options[e.selectedIndex].value;
+    if (val == 'none')
+      continue
     xml += '    <content_attribute id="' + cats[i].id + '">' + val + '</content_attribute>\n'
   }
-  xml += '  </content_rating>\n'
+  if (xml.length > 0) {
+    xml = '  <content_rating type="oars-' + api_version + '">\n' + xml + '  </content_rating>\n'
+  } else {
+    xml = '  <content_rating type="oars-' + api_version + '" />\n'
+  }
   document.getElementById('appdata_oars').value = xml;
 
   // disable elements when the API version is too old
