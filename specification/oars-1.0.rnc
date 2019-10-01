@@ -1,0 +1,32 @@
+start = content_rating
+
+content_rating = element content_rating {
+  attribute type { "oars-1.0" },
+  content_attribute*
+}
+content_attribute = element content_attribute {
+  attribute id { ids },
+  values
+}
+
+values = "unknown" | "none" | "mild" | "moderate" | "intense"
+ids = "drugs-alcohol" |
+      "drugs-narcotics" |
+      "drugs-tobacco" |
+      "language-discrimination" |
+      "language-humor" |
+      "language-profanity" |
+      "money-gambling" |
+      "money-purchasing" |
+      "sex-nudity" |
+      "sex-themes" |
+      "social-audio" |
+      "social-chat" |
+      "social-contacts" |
+      "social-info" |
+      "social-location" |
+      "violence-bloodshed" |
+      "violence-cartoon" |
+      "violence-fantasy" |
+      "violence-realistic" |
+      "violence-sexual"
