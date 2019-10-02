@@ -3,7 +3,7 @@ OARS 1.0 and 1.1 specification
 
 This specification gives the semantics for the OARS 1.0–1.1 XML format. The
 structure of the format is specified in the
-[accompanying XML schema](./oars-1.1.rng).
+[accompanying XML schema](./oars-1.1.rnc).
 
 Future versions of the format may change structure or semantics in incompatible
 ways.
