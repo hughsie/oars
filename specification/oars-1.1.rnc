@@ -18,11 +18,7 @@ ids = "drugs-alcohol" |
       "language-profanity" |
       "money-gambling" |
       "money-purchasing" |
-      "sex-adultery" |
-      "sex-appearance" |
-      "sex-homosexuality" |
       "sex-nudity" |
-      "sex-prostitution" |
       "sex-themes" |
       "social-audio" |
       "social-chat" |
@@ -35,6 +31,5 @@ ids = "drugs-alcohol" |
       "violence-fantasy" |
       "violence-realistic" |
       "violence-sexual" |
-      "violence-slavery" |
-      "violence-worship"
+      "violence-slavery"
 

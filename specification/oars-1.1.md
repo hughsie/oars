@@ -88,28 +88,3 @@ later versions of the OARS specification would have value `unknown`.
 This example represents some AppData which doesn’t contain a `<content_rating/>`
 element. In that case, *all* attributes (from any version of the OARS
 specification) have value `unknown`.
-
-Rationale
----
-
-Certain attributes in the specification require some explanation as to why they
-are present. This list is not exhaustive and may be added to in future.
-
- * `sex-homosexuality`: As of 2020,
-   [various countries](https://www.humandignitytrust.org/lgbt-the-law/map-of-criminalisation/)
-   have laws which criminalise lesbian, gay, bisexual or transgender (LGBT)
-   people. In order for software and content to be distributed in those
-   countries without breaking the law, and possible reprisal, it is necessary to
-   be able to tag software and content which contains LGBT references, so that
-   it can be hidden in those countries.
-   However, in other countries (for example, the EU), discrimination laws
-   explicitly prohibit discrimination on the basis of gender or sexuality. So
-   while LGBT tagging may be available in OARS data, consumers of that data must
-   only apply it in countries where the law requires that.
-
- * `violence-desecration`: As of 2020,
-   [various countries](https://en.wikipedia.org/wiki/Flag_desecration) have laws
-   against desecration of flags, objects, books, bodies, places, etc. which are
-   considered ‘sacred’ by particular groups of people. As above, content which
-   contains desecration needs to be hidden to remain legal (and culturally
-   acceptable) in those countries.
