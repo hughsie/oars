@@ -13,3 +13,5 @@ Parents and responsible adults can make informed choices before installing softw
 
 ### Developers
 Creating the required AppStream XML markup is 100% free and no payment is required to any certification company.
+
+Please note that all users taking issue with this service implementing a flag specfically about homosexual relationships are [advised to use version 1.0](https://github.com/hughsie/oars/issues/41#issuecomment-811967792).
