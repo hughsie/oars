@@ -19,6 +19,7 @@ ids = "drugs-alcohol" |
       "money-gambling" |
       "money-purchasing" |
       "sex-nudity" |
+      "sex-homosexuality|"
       "sex-themes" |
       "social-audio" |
       "social-chat" |
@@ -32,4 +33,4 @@ ids = "drugs-alcohol" |
       "violence-realistic" |
       "violence-sexual" |
       "violence-slavery"
-
+      
