@@ -130,6 +130,12 @@ function updateAppData() {
     { id:       'money-gambling',
       versions: ['1.0', '1.1']
     },
+    { id:       'mood-intensity',
+      versions: ['1.1']
+    },
+    { id:       'mood-fear',
+      versions: ['1.1']
+    },
   ];
 
   var e = document.getElementById('api-version');
@@ -179,7 +185,10 @@ function updateAppData() {
     },
     { section:  'money',
       kinds:    ['game-online', 'game-offline', 'app-online', 'app-offline']
-    }
+    },
+    { section:  'mood',
+      kinds:    ['game-online', 'game-offline']
+    },
   ];
 
   var e = document.getElementById('component-kind');
@@ -232,6 +241,9 @@ function updateAppData() {
       </li>
       <li class="nav-item" id="tab-social">
         <a class="nav-link" data-toggle="tab" href="#social" role="tab">Social</a>
+      </li>
+      <li class="nav-item" id="tab-mood">
+        <a class="nav-link" data-toggle="tab" href="#mood" role="tab">Mood</a>
       </li>
       <li class="nav-item" id="tab-xml">
         <a class="nav-link" data-toggle="tab" href="#xml" role="tab">XML</a>
@@ -610,7 +622,43 @@ function updateAppData() {
           <option value="none">None</option>
           <option value="intense">Intense: Sharing physical location to other users e.g. a postal address</option>
         </select>
-        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Show me the result!</button>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
+      </div>
+
+      <!-- Mood pane -->
+      <div class="tab-pane mt-3" id="mood" role="tabpanel">
+
+        <h2 class="mt-3">General intensity</h2>
+        <p>
+          A summary of the general intensity of the content, e.g. the pacing of a piece of media or pressure to act on the player in a videogame.
+          Heated arguments between characters being a major part of the work, or rapid sequences of tense scenes increase the perceived "intensity"
+          of a work, and conflict-oriented content should be considered more intense than non-competitive (e.g. solo versus competitive sports).
+        </p>
+        <p>
+          This is taken into consideration by e.g. the German <a href="https://usk.de/en/the-usk/faqs/age-categories/">USK video games rating
+          authority</a> in their age ratings. The classifications here roughly coincide with the USK 0, 12, 16 and 18 ratings.
+        </p>
+        <select class="form-control" id="mood-intensity" required>
+          <option value="none">None: No significant pressure and a complexity and tone of content that would be suitable for young children.</option>
+          <option value="mild">Mild: Faster pace and more pressure; conflict presented is non-violent or staged to be clearly recognisable as fiction.</option>
+          <option value="moderate">Moderate: Rapid pacing and aggressive conflict. </option>
+          <option value="intense">Intense: High-pressure pacing; games forcing players to put themselves in danger.</option>
+        </select>
+
+        <h2 class="mt-3">Fear</h2>
+        <p>
+          Whether the content includes elements frightening or threatening to the person using/viewing/playing the content.
+        </p>
+        <p>
+          This is intended to mirror the <a href="https://pegi.info/fear">PEGI "Fear" descriptor</a>.
+        </p>
+        <select class="form-control" id="mood-fear" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Content that might unsettle or frighten people with particular sensitivities or young children.</option>
+          <option value="moderate">Moderate: Moderate use of content specifically intended to create a frightening mood.</option>
+          <option value="intense">Intense: Heavy use of content specifically intended to frighten the viewer/user/player.</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
       </div>
 
       <!-- XML pane -->
