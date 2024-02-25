@@ -1,9 +1,9 @@
-OARS 1.0 and 1.1 specification
+OARS 1.0-1.2 specification
 ===
 
-This specification gives the semantics for the OARS 1.0–1.1 XML format. The
+This specification gives the semantics for the OARS 1.0–1.2 XML format. The
 structure of the format is specified in the
-[accompanying XML schema](./oars-1.1.rnc).
+[accompanying XML schema](./oars-1.2.rnc).
 
 Future versions of the format may change structure or semantics in incompatible
 ways.
@@ -14,9 +14,10 @@ Version strings
 This specification refers to OARS versions identified by the strings:
  * `oars-1.0`
  * `oars-1.1`
+ * `oars-1.2`
 
-The only difference between the two is that OARS 1.1 supports more attributes
-than OARS 1.0.
+The only difference between these versions is that versions 1.1 and 1.2 add some more attributes
+to describe content over 1.0.
 
 Semantics
 ---

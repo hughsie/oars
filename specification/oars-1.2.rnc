@@ -1,7 +1,7 @@
 start = content_rating
 
 content_rating = element content_rating {
-  attribute type { "oars-1.1" },
+  attribute type { "oars-1.2" },
   content_attribute*
 }
 content_attribute = element content_attribute {
@@ -31,4 +31,6 @@ ids = "drugs-alcohol" |
       "violence-fantasy" |
       "violence-realistic" |
       "violence-sexual" |
-      "violence-slavery"
+      "violence-slavery" |
+      "mood-intensity" |
+      "mood-fear"

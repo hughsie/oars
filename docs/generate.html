@@ -131,10 +131,10 @@ function updateAppData() {
       versions: ['1.0', '1.1']
     },
     { id:       'mood-intensity',
-      versions: ['1.1']
+      versions: ['1.2']
     },
     { id:       'mood-fear',
-      versions: ['1.1']
+      versions: ['1.2']
     },
   ];
 
@@ -282,6 +282,7 @@ function updateAppData() {
         <select class="form-control" id="api-version" required>
           <option value="1.0">1.0 (works with all clients)</option>
           <option value="1.1" selected="selected">1.1 (works with GNOME Software &gt;= 3.27.3)</option>
+          <option value="1.2" selected="selected">1.2 (adds the Mood category)</option>
         </select>
         <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Let's get started!</button>
       </div>
