@@ -16,8 +16,9 @@ This specification refers to OARS versions identified by the strings:
  * `oars-1.1`
  * `oars-1.2`
 
-The only difference between these versions is that versions 1.1 and 1.2 add some more attributes
-to describe content over 1.0.
+The only difference between these versions is that versions 1.1 and 1.2 add
+more content descriptor attributes over 1.0; 1.1 adds a pair of cultural
+sensitivity descriptors and 1.2 adds "Mood" and "Health" categories.
 
 Semantics
 ---

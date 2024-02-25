@@ -136,6 +136,18 @@ function updateAppData() {
     { id:       'mood-fear',
       versions: ['1.2']
     },
+    { id:       'health-flashing',
+      versions: ['1.2']
+    },
+    { id:       'health-noise',
+      versions: ['1.2']
+    },
+    { id:       'health-addiction',
+      versions: ['1.2']
+    },
+    { id:       'health-accessibility',
+      versions: ['1.2']
+    },
   ];
 
   var e = document.getElementById('api-version');
@@ -188,6 +200,9 @@ function updateAppData() {
     },
     { section:  'mood',
       kinds:    ['game-online', 'game-offline']
+    },
+    { section:  'health',
+      kinds:    ['game-online', 'game-offline', 'app-online', 'app-offline']
     },
   ];
 
@@ -244,6 +259,9 @@ function updateAppData() {
       </li>
       <li class="nav-item" id="tab-mood">
         <a class="nav-link" data-toggle="tab" href="#mood" role="tab">Mood</a>
+      </li>
+      <li class="nav-item" id="tab-health">
+        <a class="nav-link" data-toggle="tab" href="#health" role="tab">Health</a>
       </li>
       <li class="nav-item" id="tab-xml">
         <a class="nav-link" data-toggle="tab" href="#xml" role="tab">XML</a>
@@ -658,6 +676,57 @@ function updateAppData() {
           <option value="mild">Mild: Content that might unsettle or frighten people with particular sensitivities or young children.</option>
           <option value="moderate">Moderate: Moderate use of content specifically intended to create a frightening mood.</option>
           <option value="intense">Intense: Heavy use of content specifically intended to frighten the viewer/user/player.</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
+      </div>
+
+      <!-- Health pane -->
+      <div class="tab-pane mt-3" id="health" role="tabpanel">
+
+        <h2 class="mt-3">Flashing visuals</h2>
+        <p>
+          Whether the application or content contains or creates flashing or swirling patterns that may cause issues for
+          people with photosensitivity or visual processing conditions.
+        </p>
+        <select class="form-control" id="health-flashing" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Slowly pulsing or swirling patterns.</option>
+          <option value="moderate">Moderate: Faster pulsing, some flashing. </option>
+          <option value="intense">Intense: Frequent significant flashing of significant portions of the screen.</option>
+        </select>
+
+        <h2 class="mt-3">Noise</h2>
+        <p>
+          Whether the content contains or produces loud or overwhelming noises that could cause difficulty for
+          people sensitive to audio.
+        </p>
+        <select class="form-control" id="health-noise" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Infrequent sudden noises.</option>
+          <option value="moderate">Moderate: Regular sudden or loud noises.</option>
+          <option value="intense">Intense: Frequent loud or constant noise.</option>
+        </select>
+
+        <h2 class="mt-3">Addiction</h2>
+        <p>
+          Whether the content includes design elements intended to keep users returning and engaging with it.
+        </p>
+        <select class="form-control" id="health-addiction" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Optional elements intended to encourage repeated engagement that are not heavily promoted within the content.</option>
+          <option value="moderate">Moderate: Elements designed to encourage repeat engagement that are not easily avoided.</option>
+          <option value="intense">Intense: Heavily promoted aspects specifically intended to cause repeat engagement, e.g. daily login rewards for a videogame or online service.</option>
+        </select>
+
+        <h2 class="mt-3">Accessibility</h2>
+        <p>
+          A descriptor of how strong the accessibility options for the content are in regards to any of the other classifiers.
+        </p>
+        <select class="form-control" id="health-accessibility" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Some accessibility options with no major changes to the content itself, e.g. colorblindness options or content warnings before potentially unsettling scenes.</option>
+          <option value="moderate">Moderate: Some of the more intense aspects of the content can be toned down, e.g. blood/gore adjustment options in videogames.</option>
+          <option value="intense">Intense: A wide range of options to allow users to fine-tune for their individual access needs.</option>
         </select>
         <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Show me the result!</button>
       </div>
