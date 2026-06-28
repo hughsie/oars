@@ -130,6 +130,24 @@ function updateAppData() {
     { id:       'money-gambling',
       versions: ['1.0', '1.1']
     },
+    { id:       'mood-intensity',
+      versions: ['1.2']
+    },
+    { id:       'mood-fear',
+      versions: ['1.2']
+    },
+    { id:       'health-flashing',
+      versions: ['1.2']
+    },
+    { id:       'health-noise',
+      versions: ['1.2']
+    },
+    { id:       'health-addiction',
+      versions: ['1.2']
+    },
+    { id:       'health-accessibility',
+      versions: ['1.2']
+    },
   ];
 
   var e = document.getElementById('api-version');
@@ -179,7 +197,13 @@ function updateAppData() {
     },
     { section:  'money',
       kinds:    ['game-online', 'game-offline', 'app-online', 'app-offline']
-    }
+    },
+    { section:  'mood',
+      kinds:    ['game-online', 'game-offline']
+    },
+    { section:  'health',
+      kinds:    ['game-online', 'game-offline', 'app-online', 'app-offline']
+    },
   ];
 
   var e = document.getElementById('component-kind');
@@ -233,6 +257,12 @@ function updateAppData() {
       <li class="nav-item" id="tab-social">
         <a class="nav-link" data-toggle="tab" href="#social" role="tab">Social</a>
       </li>
+      <li class="nav-item" id="tab-mood">
+        <a class="nav-link" data-toggle="tab" href="#mood" role="tab">Mood</a>
+      </li>
+      <li class="nav-item" id="tab-health">
+        <a class="nav-link" data-toggle="tab" href="#health" role="tab">Health</a>
+      </li>
       <li class="nav-item" id="tab-xml">
         <a class="nav-link" data-toggle="tab" href="#xml" role="tab">XML</a>
       </li>
@@ -270,6 +300,7 @@ function updateAppData() {
         <select class="form-control" id="api-version" required>
           <option value="1.0">1.0 (works with all clients)</option>
           <option value="1.1" selected="selected">1.1 (works with GNOME Software &gt;= 3.27.3)</option>
+          <option value="1.2" selected="selected">1.2 (adds the Mood category)</option>
         </select>
         <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Let's get started!</button>
       </div>
@@ -609,6 +640,93 @@ function updateAppData() {
         <select class="form-control" id="social-location" required>
           <option value="none">None</option>
           <option value="intense">Intense: Sharing physical location to other users e.g. a postal address</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
+      </div>
+
+      <!-- Mood pane -->
+      <div class="tab-pane mt-3" id="mood" role="tabpanel">
+
+        <h2 class="mt-3">General intensity</h2>
+        <p>
+          A summary of the general intensity of the content, e.g. the pacing of a piece of media or pressure to act on the player in a videogame.
+          Heated arguments between characters being a major part of the work, or rapid sequences of tense scenes increase the perceived <em>"intensity"</em>
+          of a work, and conflict-oriented content should be considered more intense than non-competitive (e.g. solo versus competitive sports).
+        </p>
+        <p>
+          This is taken into consideration by e.g. the German <a href="https://usk.de/en/the-usk/faqs/age-categories/">USK video games rating
+          authority</a> in their age ratings. The classifications here roughly coincide with the USK 0, 12, 16 and 18 ratings.
+        </p>
+        <select class="form-control" id="mood-intensity" required>
+          <option value="none">None: No significant pressure and a complexity and tone of content that would be suitable for young children.</option>
+          <option value="mild">Mild: Faster pace and more pressure; conflict presented is non-violent or staged to be clearly recognisable as fiction.</option>
+          <option value="moderate">Moderate: Rapid pacing and aggressive conflict. </option>
+          <option value="intense">Intense: High-pressure pacing; games forcing players to put themselves in danger.</option>
+        </select>
+
+        <h2 class="mt-3">Fear</h2>
+        <p>
+          Whether the content includes elements frightening or threatening to the person using/viewing/playing the content.
+        </p>
+        <p>
+          This is intended to mirror the <a href="https://pegi.info/fear">PEGI "Fear" descriptor</a>.
+        </p>
+        <select class="form-control" id="mood-fear" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Content that might unsettle or frighten people with particular sensitivities or young children.</option>
+          <option value="moderate">Moderate: Moderate use of content specifically intended to create a frightening mood.</option>
+          <option value="intense">Intense: Heavy use of content specifically intended to frighten the viewer/user/player.</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
+      </div>
+
+      <!-- Health pane -->
+      <div class="tab-pane mt-3" id="health" role="tabpanel">
+
+        <h2 class="mt-3">Flashing visuals</h2>
+        <p>
+          Whether the application or content contains or creates flashing or swirling patterns that may cause issues for
+          people with photosensitivity or visual processing conditions.
+        </p>
+        <select class="form-control" id="health-flashing" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Slowly pulsing or swirling patterns.</option>
+          <option value="moderate">Moderate: Faster pulsing, some flashing. </option>
+          <option value="intense">Intense: Frequent significant flashing of significant portions of the screen.</option>
+        </select>
+
+        <h2 class="mt-3">Noise</h2>
+        <p>
+          Whether the content contains or produces loud or overwhelming noises that could cause difficulty for
+          people sensitive to audio.
+        </p>
+        <select class="form-control" id="health-noise" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Infrequent sudden noises.</option>
+          <option value="moderate">Moderate: Regular sudden or loud noises.</option>
+          <option value="intense">Intense: Frequent loud or constant noise.</option>
+        </select>
+
+        <h2 class="mt-3">Addiction</h2>
+        <p>
+          Whether the content includes design elements intended to keep users returning and engaging with it.
+        </p>
+        <select class="form-control" id="health-addiction" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Optional elements intended to encourage repeated engagement that are not heavily promoted within the content.</option>
+          <option value="moderate">Moderate: Elements designed to encourage repeat engagement that are not easily avoided.</option>
+          <option value="intense">Intense: Heavily promoted aspects specifically intended to cause repeat engagement, e.g. daily login rewards for a videogame or online service.</option>
+        </select>
+
+        <h2 class="mt-3">Accessibility</h2>
+        <p>
+          A descriptor of how strong the accessibility options for the content are in regards to any of the other classifiers.
+        </p>
+        <select class="form-control" id="health-accessibility" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Some accessibility options with no major changes to the content itself, e.g. colorblindness options or content warnings before potentially unsettling scenes.</option>
+          <option value="moderate">Moderate: Some of the more intense aspects of the content can be toned down, e.g. blood/gore adjustment options in videogames.</option>
+          <option value="intense">Intense: A wide range of options to allow users to fine-tune for their individual access needs.</option>
         </select>
         <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Show me the result!</button>
       </div>
