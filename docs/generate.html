@@ -130,6 +130,12 @@ function updateAppData() {
     { id:       'money-gambling',
       versions: ['1.0', '1.1']
     },
+    { id:       'ai-interactiveness',
+      versions: ['1.2']
+    },
+    { id:       'ai-unsafeness',
+      versions: ['1.2']
+    },
   ];
 
   var e = document.getElementById('api-version');
@@ -178,6 +184,9 @@ function updateAppData() {
       kinds:    ['game-online', 'app-online']
     },
     { section:  'money',
+      kinds:    ['game-online', 'game-offline', 'app-online', 'app-offline']
+    },
+    { section:  'ai',
       kinds:    ['game-online', 'game-offline', 'app-online', 'app-offline']
     }
   ];
@@ -233,6 +242,9 @@ function updateAppData() {
       <li class="nav-item" id="tab-social">
         <a class="nav-link" data-toggle="tab" href="#social" role="tab">Social</a>
       </li>
+      <li class="nav-item" id="tab-ai">
+        <a class="nav-link" data-toggle="tab" href="#ai" role="tab">AI</a>
+      </li>
       <li class="nav-item" id="tab-xml">
         <a class="nav-link" data-toggle="tab" href="#xml" role="tab">XML</a>
       </li>
@@ -269,7 +281,8 @@ function updateAppData() {
         </p>
         <select class="form-control" id="api-version" required>
           <option value="1.0">1.0 (works with all clients)</option>
-          <option value="1.1" selected="selected">1.1 (works with GNOME Software &gt;= 3.27.3)</option>
+          <option value="1.1">1.1 (works with GNOME Software &gt;= 3.27.3)</option>
+          <option value="1.2" selected="selected">1.2 (adds AI category)</option>
         </select>
         <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Let's get started!</button>
       </div>
@@ -609,6 +622,33 @@ function updateAppData() {
         <select class="form-control" id="social-location" required>
           <option value="none">None</option>
           <option value="intense">Intense: Sharing physical location to other users e.g. a postal address</option>
+        </select>
+        <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Next</button>
+      </div>
+
+      <!-- AI pane -->
+      <div class="tab-pane mt-3" id="ai" role="tabpanel">
+
+        <h2 class="mt-3">Interactiveness</h2>
+        <p>
+          Defined as <em>the amount of freedom the developers allows the end-user over controlling the AI interaction</em>.
+        </p>
+        <select class="form-control" id="ai-interactiveness" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: Non-generative AI usage limited to pre-programmed scnarios (e.g. a personal assistant playing a kid-friendly trivia game)</option>
+          <option value="moderate">Moderate: GenAI usage but with no direct input from the user (e.g. an application that adapts based on user behavior using GenAI)</option>
+          <option value="intense">Intense: Full GenAI usage with the user being in control of the interaction (i.e. end-user is able to prompt based on a provided input mechanism)</option>
+        </select>
+
+        <h2 class="mt-3">Unsafeness</h2>
+        <p>
+          Defined as <em>the ability of an application to allow the user to run a GenAI model that can generate, discuss or otherwise operate on NSFW or illicit content</em>.
+        </p>
+        <select class="form-control" id="ai-unsafeness" required>
+          <option value="none">None</option>
+          <option value="mild">Mild: GenAI behavior is restricted with developer-provided filters intended to prevent inappropriate content for younger ages</option>
+          <option value="moderate">Moderate: GenAI models run are allowed to discuss adult-level topics but filters are in place intended to prevent NSFW content generation or discussion of illicit topics</option>
+          <option value="intense">Intense: The application may allow running uncensored models which are able to generate NSFW content and discuss illicit content</option>
         </select>
         <button type="button" onClick="advance_tab()" class="btn btn-info mt-4 float-right">Show me the result!</button>
       </div>
