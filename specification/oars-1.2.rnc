@@ -10,8 +10,8 @@ content_attribute = element content_attribute {
 }
 
 values = "unknown" | "none" | "mild" | "moderate" | "intense"
-ids = "ai-interactiveness" |
-      "ai-unsafeness" |
+ids = "ai-generation" |
+      "ai-interaction" |
       "drugs-alcohol" |
       "drugs-narcotics" |
       "drugs-tobacco" |
